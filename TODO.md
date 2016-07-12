@@ -1,7 +1,7 @@
 ### my first game jam
 
-- [ ] find love2d resources
-- [ ] finalize game concept
+- [x] find love2d resources
+- [x] finalize game concept
 - [ ] graphics
 - [ ] introduction
 - [ ] between challenges
