@@ -1,26 +1,19 @@
-require("config")
-require("resources")
-require("util")
--- objects
-require("map")
-require("phone")
-require("player")
-require("enemy")
-require("knife")
-require("fork")
-require("weapon")
-require("tomato")
--- gamestates
-require("opening")
-require("mainmenu")
-require("directions")
-require("introduction")
-require("stairs")
-require("kitchen")
-require("livingroom")
-require("bedroom")
-require("ending")
--- 3rd party libraries
-require("AnAL")
-require("slam")
-require("TSerial")
+Test = require "Test"
+
+local name;
+
+function love.load(arg)
+	name = Test(3, 0)
+end
+
+function love.update(dt)
+
+	name:update(dt)
+
+end
+
+function love.draw(dt)
+	love.graphics.setColor(255, 255, 255)
+	love.graphics.print("Score:jk " .. name:stuff(), 400, 10)
+	name:draw()
+end
