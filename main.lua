@@ -1,19 +1,27 @@
-Test = require "Test"
+local Knife = require("knife")
+local Player = require("player")
 
-local name;
+local name, name2, lol
 
-function love.load(arg)
-	name = Test(3, 0)
+function love.load()
+
+	math.randomseed(os.time())
+	name = Knife(math.random(300, 600), math.random(300, 600))
+	math.randomseed(os.time())
+	name2 = Knife(math.random(500, 600), math.random(400, 600))
+	lol = Player()
+
 end
 
 function love.update(dt)
-
 	name:update(dt)
-
+	name2:update(dt)
+	lol:update(dt)
 end
 
 function love.draw(dt)
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.print("Score:jk " .. name:stuff(), 400, 10)
 	name:draw()
+	name2:draw()
+	lol:draw()
+
 end
