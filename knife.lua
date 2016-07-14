@@ -5,11 +5,11 @@ local Knife = Class{}
 
 function Knife:init(x, y)
 		self.damage = 9
-		self.speed = 20
+		self.speed = 5
     self.acceleration = 100
 		self.x = x
 		self.y = y
-    self.img = love.graphics.newImage("resources/placeholder_knife.png")
+    self.img = love.graphics.newImage("resources/knife.png")
 		self.pos = vector(self.x, self.y) --vector(400, 300)
 		self.delta = vector(0, 0)
 end
