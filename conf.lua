@@ -1,5 +1,5 @@
 function love.conf(t)
-	t.title = "think of title...Dying Battery? too literal?"
+	t.title = "Charge"
 	t.window.width = 1000
 	t.window.height = 800
 
