@@ -9,8 +9,10 @@ end
 
 function Menu:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(game)
+        Gamestate.switch(Game)
     else
-        Gamestate.switch(ithinkigotthis)
+        Gamestate.switch(Ithinkigotthis)
     end
 end
+
+return Menu

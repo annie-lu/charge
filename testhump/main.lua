@@ -37,5 +37,5 @@ local Ithinkigotthis = require 'ithinkigotthis'
 
 function love.load()
     Gamestate.registerEvents()
-    Gamestate.switch(menu)
+    Gamestate.switch(Menu)
 end
