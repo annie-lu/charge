@@ -1,26 +1,26 @@
 local Class = require "hump.class"
 local vector = require "hump.vector"
 
-local Knife = Class{}
+local Fork = Class{}
 
-function Knife:init(x, y)
-		self.damage = 9
-		self.speed = 5
-    self.acceleration = 10 -- just to test
+function Fork:init(x, y)
+		self.damage = 6
+		self.speed = 2
+    self.acceleration = 100
 		self.x = x
 		self.y = y
-    self.img = love.graphics.newImage("resources/knife.png")
+    self.img = love.graphics.newImage("resources/fork.png")
 		self.pos = vector(self.x, self.y) --vector(400, 300)
 		self.delta = vector(0, 0)
 end
 
-function Knife:draw()
+function Fork:draw()
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 end
 
-function Knife:update(dt)
+function Fork:update(dt)
 	self.delta.x = -10;
 	self.pos = self.pos + self.delta * self.acceleration * dt
 end
 
-return Knife
+return Fork

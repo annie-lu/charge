@@ -34,4 +34,17 @@ function Player:update(dt)
 
 end
 
+function Player:getX()
+	return self.pos.x
+end
+
+function Player:getY()
+	return self.pos.y
+end
+
+function Player:getImg()
+	return self.img
+end
+
+
 return Player
