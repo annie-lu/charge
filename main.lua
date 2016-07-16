@@ -20,13 +20,14 @@ function love.load()
 	math.randomseed(os.time())
 	name3 = Fork(math.random(700, 1000), math.random(200, 600))
 
+	triangle = HC.polygon(100, 100, 200, 300, 300, 400, 500, 600)
 
 	-- add a rectangle to the scene
     rect = HC.rectangle(200,400,400,20)
 		rect2 = HC.rectangle(600, 600, 40, 40)
     -- add a circle to the scene
     mouse = HC.circle(400,300,20)
-		bb = HC.rectangle(lol:getX(), lol:getY(), lol:getImg():getWidth(), lol:getImg():getHeight())
+		bb = HC.rectangle(lol:getX() * 2, lol:getY(), lol:getImg():getWidth(), lol:getImg():getHeight())
     mouse:moveTo(love.mouse.getPosition())
 
 end
@@ -40,7 +41,7 @@ function love.update(dt)
 
 	-- move circle to mouse position
     mouse:moveTo(love.mouse.getPosition())
-		bb:moveTo(lol:getX(), lol:getY())
+		bb:moveTo(lol:getX() * 1.5, lol:getY() * 1.4)--VERY INTERESTING
     -- rotate rectangle
     rect:rotate(dt)
 
@@ -65,13 +66,14 @@ function love.draw(dt)
 	lol:draw()
 	name3:draw()
 	bb:draw()
+	triangle:draw()
 	--IF YOU DON'T PUT A DRAW METHOD THE BOX STAYS INVISIBLE
 	--ITS REVOLUTIONARY I SHOULD HAVE KNOWN THIS
 	width = love.graphics.getWidth()
 	height = love.graphics.getHeight()
-	love.graphics.print("Player: Width " .. lol:getX() .. "  Height " .. lol:getY(), 100, 100)
+	love.graphics.print("Player: X " .. lol:getX() .. "  Y " .. lol:getY(), 100, 100)
 	local cx, cy = bb:center()
-	love.graphics.print("BB: Width " .. cx .. "  Height " .. cy, 100, 300)
+	love.graphics.print("BB: X " .. cx .. "  Y " .. cy, 100, 300)
 
 
 	-- print messages
