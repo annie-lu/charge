@@ -2,7 +2,7 @@ local Knife = require 'knife'
 local Player = require 'player'
 local Fork = require 'fork'
 local HC = require 'hc'
-
+local vector = require 'hump.vector'
 local text = {}
 
 
@@ -16,6 +16,7 @@ function love.load()
 	math.randomseed(os.time())
 	name2 = Knife(math.random(700, 1000), math.random(400, 600))
 	lol = Player(100,350)
+	original = vector(lol:getX(), lol:getY())
 
 	math.randomseed(os.time())
 	name3 = Fork(math.random(700, 1000), math.random(200, 600))
@@ -27,8 +28,9 @@ function love.load()
 		rect2 = HC.rectangle(600, 600, 40, 40)
     -- add a circle to the scene
     mouse = HC.circle(400,300,20)
-		bb = HC.rectangle(lol:getX() * 2, lol:getY(), lol:getImg():getWidth(), lol:getImg():getHeight())
-    mouse:moveTo(love.mouse.getPosition())
+		bb = HC.rectangle(lol:getX(), lol:getY(), lol:getImg():getWidth(), lol:getImg():getHeight())
+		obb = vector(bb:center())
+	mouse:moveTo(love.mouse.getPosition())
 
 end
 
@@ -41,7 +43,14 @@ function love.update(dt)
 
 	-- move circle to mouse position
     mouse:moveTo(love.mouse.getPosition())
-		bb:moveTo(lol:getX() * 1.5, lol:getY() * 1.4)--VERY INTERESTING
+	-- 			100			300
+	v = vector(lol:getX(), lol:getY())
+	re = original - v
+	--			150			490
+	c = vector(bb:center()) + vector(bb:center()) / 2
+
+
+	bb:moveTo(obb.x - re.x, obb.y - re.y)--VERY INTERESTING
     -- rotate rectangle
     rect:rotate(dt)
 
@@ -76,10 +85,10 @@ function love.draw(dt)
 	love.graphics.print("BB: X " .. cx .. "  Y " .. cy, 100, 300)
 
 
-	-- print messages
+	--print messages
     for i = 1,#text do
-        love.graphics.setColor(255,255,255, 255 - (i-1) * 6)
-        love.graphics.print(text[#text - (i-1)], 10, i * 15)
+       love.graphics.setColor(255,255,255, 255 - (i-1) * 6)
+       love.graphics.print(text[#text - (i-1)], 10, i * 15)
     end
 
     -- shapes can be drawn to the screen
