@@ -14,7 +14,7 @@ function love.load()
 	name = Knife(math.random(700, 1000), math.random(300, 600))
 
 	math.randomseed(os.time())
-	name2 = Knife(math.random(700, 1000), math.random(400, 600))
+	--name2 = Knife(math.random(700, 1000), math.random(400, 600))
 	lol = Player(100,350)
 	original = vector(lol:getX(), lol:getY())
 
@@ -36,13 +36,13 @@ end
 
 function love.update(dt)
 	name:update(dt)
-	name2:update(dt)
+	--name2:update(dt)
 	lol:update(dt)
 	name3:update(dt)
 
 
 	-- move circle to mouse position
-    mouse:moveTo(love.mouse.getPosition())
+    --mouse:moveTo(love.mouse.getPosition())
 	-- 			100			300
 	v = vector(lol:getX(), lol:getY())
 	re = original - v
@@ -71,7 +71,7 @@ end
 
 function love.draw(dt)
 	name:draw()
-	name2:draw()
+	--name2:draw()
 	lol:draw()
 	name3:draw()
 	bb:draw()
@@ -83,7 +83,7 @@ function love.draw(dt)
 	love.graphics.print("Player: X " .. lol:getX() .. "  Y " .. lol:getY(), 100, 100)
 	local cx, cy = bb:center()
 	love.graphics.print("BB: X " .. cx .. "  Y " .. cy, 100, 300)
-
+    love.graphics.print("Mouse Position: " .. love.mouse.getX() .. " Y: " .. love.mouse.getY())
 
 	--print messages
     for i = 1,#text do
