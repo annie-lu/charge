@@ -9,7 +9,7 @@ function Player:init(x,y)
     self.health = 30
 		self.x = x
 		self.y = y
-    self.img = love.graphics.newImage("resources/placeholder_player.png")
+    self.img = love.graphics.newImage("placeholder_player.png")
 		self.pos = vector(self.x, self.y)
     self.delta = vector(0, 0)
 end

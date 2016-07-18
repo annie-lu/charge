@@ -1,8 +1,8 @@
 Gamestate = require 'hump.gamestate'
 
-local Kitchen = require 'kitchen'
+local Introduction = require 'intro'
 
 function love.load()
     Gamestate.registerEvents()
-    Gamestate.switch(Kitchen)
+    Gamestate.switch(Introduction)
 end
