@@ -46,5 +46,8 @@ function Player:getImg()
 	return self.img
 end
 
+function Player:getHealth()
+	return self.health
+end
 
 return Player

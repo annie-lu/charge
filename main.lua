@@ -5,31 +5,33 @@ local HC = require 'hc'
 local vector = require 'hump.vector'
 local Timer = require 'hump.timer'
 local fruits = {}
-
+local timer = Timer.new()
 
 
 local name, name2, lol, name3
 
 function love.load()
 
+	color = {0, 0, 0}
+	Timer.tween(5, color, {0, 0, 255}, 'in-out-quad')
+
 	math.randomseed(os.time())
 	--name = Knife(math.random(700, 1000), math.random(300, 600))
 
 	math.randomseed(os.time())
 	fruits[1] = Knife(math.random(700, 1000), math.random(400, 600))
-	lol = Player(100,350)
+    math.randomseed(os.time())
+    fruits[2] = Knife(math.random(300, 1000), math.random(400, 600))
+    math.randomseed(os.time())
+    fruits[3] = Knife(math.random(300, 1000), math.random(400, 600))
+    lol = Player(100,350)
 	original = vector(lol:getX(), lol:getY())
 
 	math.randomseed(os.time())
 	--name3 = Fork(math.random(700, 1000), math.random(200, 600))
 
 	--triangle = HC.polygon(100, 100, 200, 300, 300, 400, 500, 600)
-    Timer.after(1,
-    function()
-        love.graphics.print("text[#text - (i-1)], 10, i * 15", 100, 100)
-        -- math.random(os.time())
-        -- fruits[#fruits] = Knife(math.random(700, 1000), math.random(400, 600))
-    end)
+
 	-- add a rectangle to the scene
     --rect = HC.rectangle(200,400,400,20)
 		--rect2 = HC.rectangle(600, 600, 40, 40)
@@ -39,10 +41,26 @@ function love.load()
 		obb = vector(bb:center())
 	mouse:moveTo(love.mouse.getPosition())
 
+	--while lol:getHealth() == 30 do
+	Timer.every(2,
+    function()
+		math.randomseed(os.time())
+		local pp = math.random(2)
+        math.randomseed(os.time())
+		if pp == 1 then
+			fruits[#fruits + 1] = Fork(math.random(700, 1000), math.random(400, 600))
+		else
+        	fruits[#fruits + 1] = Knife(math.random(700, 1000), math.random(400, 600))
+		end
+    end)
+	--end
 
 end
 
 function love.update(dt)
+
+
+
 	--name:update(dt)
 	--name2:update(dt)
 	lol:update(dt)
@@ -50,7 +68,7 @@ function love.update(dt)
 
     Timer.update(dt)
 
-
+	--fruits[2]:update(dt)
     for i = 1, #fruits do
         fruits[i]:update(dt)
     end
@@ -84,9 +102,12 @@ function love.update(dt)
 end
 
 function love.draw(dt)
-    for i = 1, #fruits do
+
+	for i = 1, #fruits do
         fruits[i]:draw(dt)
     end
+	--fruits[2]:draw(dt)
+	love.graphics.setBackgroundColor(color)
 
 
 
@@ -102,7 +123,7 @@ function love.draw(dt)
 	-- height = love.graphics.getHeight()
 	-- love.graphics.print("Player: X " .. lol:getX() .. "  Y " .. lol:getY(), 100, 100)
 	-- local cx, cy = bb:center()
-	-- love.graphics.print("BB: X " .. cx .. "  Y " .. cy, 100, 300)
+	love.graphics.print(#fruits, 100, 300)
     -- love.graphics.print("Mouse Position: " .. love.mouse.getX() .. " Y: " .. love.mouse.getY())
 
 	--print messages
