@@ -41,25 +41,27 @@ function love.load()
 		obb = vector(bb:center())
 	mouse:moveTo(love.mouse.getPosition())
 
+
 	--while lol:getHealth() == 30 do
-	Timer.every(2,
+
+	Timer.every(1,
     function()
 		math.randomseed(os.time())
 		local pp = math.random(2)
         math.randomseed(os.time())
 		if pp == 1 then
-			fruits[#fruits + 1] = Fork(math.random(700, 1000), math.random(400, 600))
+			fruits[#fruits + 1] = Fork(math.random(1000, 1100), math.random(400, 600))
 		else
-        	fruits[#fruits + 1] = Knife(math.random(700, 1000), math.random(400, 600))
+        	fruits[#fruits + 1] = Knife(math.random(1000, 1100), math.random(400, 600))
 		end
     end)
+
+
 	--end
 
 end
 
 function love.update(dt)
-
-
 
 	--name:update(dt)
 	--name2:update(dt)
@@ -70,6 +72,9 @@ function love.update(dt)
 
 	--fruits[2]:update(dt)
     for i = 1, #fruits do
+		if fruits[i]:getX() < -10 then
+			table.remove(fruits, fruits[i])
+		end
         fruits[i]:update(dt)
     end
 
@@ -102,6 +107,8 @@ function love.update(dt)
 end
 
 function love.draw(dt)
+
+
 
 	for i = 1, #fruits do
         fruits[i]:draw(dt)

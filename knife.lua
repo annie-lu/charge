@@ -7,7 +7,7 @@ local Knife = Class{}
 function Knife:init(x, y)
 		self.damage = 9
 		self.speed = 5
-    self.acceleration = 10 -- just to test
+    self.acceleration = 50 -- just to test
 		self.x = x
 		self.y = y
     self.img = love.graphics.newImage("resources/knife.png")
@@ -38,6 +38,10 @@ function Knife:update(dt)
 	self.re = self.original - self.pos
 
 	self.bb:moveTo(self.test.x - self.re.x, self.test.y - self.re.y)
+end
+
+function Knife:getX()
+	return self.pos.x;
 end
 
 return Knife

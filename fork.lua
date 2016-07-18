@@ -6,7 +6,7 @@ local Fork = Class{}
 function Fork:init(x, y)
 		self.damage = 6
 		self.speed = 2
-    self.acceleration = 10
+    self.acceleration = 50
 		self.x = x
 		self.y = y
     self.img = love.graphics.newImage("resources/fork.png")
@@ -27,6 +27,10 @@ function Fork:update(dt)
 	self.re = self.original - self.pos
 	self.bb:moveTo(self.pos.x + 20, self.pos.y + 20)
 
+end
+
+function Fork:getX()
+	return self.pos.x
 end
 
 return Fork
