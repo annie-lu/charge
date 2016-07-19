@@ -1,6 +1,6 @@
 local Class = require "hump.class"
 local vector = require "hump.vector"
-local HC = require 'hc'
+--local HC = require 'hc'
 
 local Knife = Class{}
 
@@ -42,6 +42,10 @@ end
 
 function Knife:getX()
 	return self.pos.x;
+end
+
+function Knife:getImg()
+	return self.img
 end
 
 return Knife

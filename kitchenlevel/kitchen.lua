@@ -5,16 +5,19 @@ local Kitchen = {}
 local Knife = require 'kitchenlevel.knife'
 local Player = require 'player'
 local Fork = require 'kitchenlevel.fork'
-local HC = require 'hc'
+HC = require 'hc'
 local vector = require 'hump.vector'
 local Timer = require 'hump.timer'
 local fruits = {}
 local timer = Timer.new()
 
 local name, name2, lol, name3
+local hit = 0
+
+collider = HC.new(850)
 
 		color = {0, 0, 0}
-	Timer.tween(5, color, {0, 0, 255}, 'in-out-quad')
+	--Timer.tween(5, color, {0, 0, 255}, 'in-out-quad')
 
 	math.randomseed(os.time())
 	--name = Knife(math.random(700, 1000), math.random(300, 600))
@@ -38,16 +41,13 @@ local name, name2, lol, name3
 		--rect2 = HC.rectangle(600, 600, 40, 40)
     -- add a circle to the scene
     mouse = HC.circle(400,300,20)
-		bb = HC.rectangle(lol:getX(), lol:getY(), lol:getImg():getWidth(), lol:getImg():getHeight())
-		obb = vector(bb:center())
+
 	mouse:moveTo(love.mouse.getPosition())
 
 
 	--while lol:getHealth() == 30 do
-
-	Timer.every(1,
-    function()
-		math.randomseed(os.time())
+function tick()
+    	math.randomseed(os.time())
 		local pp = math.random(2)
         math.randomseed(os.time())
 		if pp == 1 then
@@ -55,11 +55,30 @@ local name, name2, lol, name3
 		else
         	fruits[#fruits + 1] = Knife(math.random(1000, 1100), math.random(400, 600))
 		end
-    end)
+end
+
+handle = Timer.every(1, tick)
+
+-- player box, knife box, fork box
+
+function on_collide(dt, shape_a, shape_b)
+	if shape_a == Knife and shape_b == Player then
+		hit = hit + 1
+	elseif shape_a == Player and shape_b == Knife then
+		hit = hit + 1
+	elseif shape_a == Fork and shape_b == Player then
+		hit = hit + 1
+	elseif shape_a == Player and shape_b == Fork then
+		hit = hit + 1
+	end
+end
 
 
 function Kitchen:update(dt)
 
+	if love.keyboard.isDown("p") then
+		Timer.cancel(handle)
+	end
 	--name:update(dt)
 	--name2:update(dt)
 	lol:update(dt)
@@ -68,23 +87,27 @@ function Kitchen:update(dt)
     Timer.update(dt)
 
 	--fruits[2]:update(dt)
-    for i = 1, #fruits do
-		if fruits[i]:getX() < -10 then
-			table.remove(fruits, fruits[i])
+    for i = #fruits, 1, -1 do
+
+		fruits[i]:update(dt)
+
+		if fruits[i]:getX() < -220 then -- just a little more than the width of the knife
+			table.remove(fruits, i)
+			i = i -1
+
 		end
-        fruits[i]:update(dt)
     end
 
 	-- move circle to mouse position
     --mouse:moveTo(love.mouse.getPosition())
 	-- 			100			300
-	v = vector(lol:getX(), lol:getY())
-	re = original - v
+	--v = vector(lol:getX(), lol:getY())
+	--re = original - v
 	--			150			490
 	--c = vector(bb:center()) + vector(bb:center()) / 2
 
 
-	bb:moveTo(obb.x - re.x, obb.y - re.y)--VERY INTERESTING
+	--bb:moveTo(obb.x - re.x, obb.y - re.y)--VERY INTERESTING
     -- rotate rectangle
     --rect:rotate(dt)
 
@@ -100,7 +123,6 @@ function Kitchen:update(dt)
     -- while #text > 40 do
     --     table.remove(text, 1)
     -- end
-
 end
 
 function Kitchen:draw(dt)
@@ -111,7 +133,7 @@ function Kitchen:draw(dt)
         fruits[i]:draw(dt)
     end
 	--fruits[2]:draw(dt)
-	love.graphics.setBackgroundColor(color)
+	--love.graphics.setBackgroundColor(color)
 
 
 
@@ -128,8 +150,9 @@ function Kitchen:draw(dt)
 	-- love.graphics.print("Player: X " .. lol:getX() .. "  Y " .. lol:getY(), 100, 100)
 	-- local cx, cy = bb:center()
 	love.graphics.print(#fruits, 100, 300)
-    -- love.graphics.print("Mouse Position: " .. love.mouse.getX() .. " Y: " .. love.mouse.getY())
-
+	--love.graphics.print(fruits[1]:getImg():getWidth(), 100, 200)
+    love.graphics.print("Press p to end the attack", 600, 50)
+	love.graphics.print(hit, 800, 50)
 	--print messages
     -- for i = 1,#text do
     --    love.graphics.setColor(255,255,255, 255 - (i-1) * 6)

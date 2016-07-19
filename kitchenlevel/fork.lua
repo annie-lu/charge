@@ -1,6 +1,6 @@
 local Class = require "hump.class"
 local vector = require "hump.vector"
-local HC = require "hc"
+--local HC = require "hc"
 local Fork = Class{}
 
 function Fork:init(x, y)
@@ -31,6 +31,10 @@ end
 
 function Fork:getX()
 	return self.pos.x
+end
+
+function Fork:getImg()
+	return self.img
 end
 
 return Fork
