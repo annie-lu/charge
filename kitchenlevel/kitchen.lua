@@ -14,7 +14,7 @@ local timer = Timer.new()
 local name, name2, lol, name3
 local hit = 0
 
-collider = HC.new(850)
+--collider = HC.new(850)
 
 		color = {0, 0, 0}
 	--Timer.tween(5, color, {0, 0, 255}, 'in-out-quad')
@@ -37,7 +37,7 @@ collider = HC.new(850)
 	--triangle = HC.polygon(100, 100, 200, 300, 300, 400, 500, 600)
 
 	-- add a rectangle to the scene
-    --rect = HC.rectangle(200,400,400,20)
+    rect = HC.rectangle(200,200,400,20)
 		--rect2 = HC.rectangle(600, 600, 40, 40)
     -- add a circle to the scene
     mouse = HC.circle(400,300,20)
@@ -91,6 +91,9 @@ function Kitchen:update(dt)
 
 		fruits[i]:update(dt)
 
+
+
+
 		if fruits[i]:getX() < -220 then -- just a little more than the width of the knife
 			table.remove(fruits, i)
 			i = i -1
@@ -98,8 +101,17 @@ function Kitchen:update(dt)
 		end
     end
 
+	-- for shape, delta  in pairs(HC.collisions(lol:getBB())) do
+	-- 	shape:move(delta.x, delta.y)
+	-- end
+	--if(lol:getBB():collidesWith(Knife:getBB())) then
+		--table.remove(fruits, i)
+	--	hit = hit + 1
+
+	--end
 	-- move circle to mouse position
-    --mouse:moveTo(love.mouse.getPosition())
+
+
 	-- 			100			300
 	--v = vector(lol:getX(), lol:getY())
 	--re = original - v
@@ -123,8 +135,24 @@ function Kitchen:update(dt)
     -- while #text > 40 do
     --     table.remove(text, 1)
     -- end
-end
 
+	local collisions = HC.collisions(rect)
+	for other, separating_vector in pairs(collisions) do
+    	--rect:move(-separating_vector.x, -separating_vector.y)
+    	other:move( -separating_vector.x,  -separating_vector.y)
+	end
+
+	if(love.keyboard.isDown('y')) then
+		mouse:moveTo(love.mouse.getPosition())
+	else
+	if love.keyboard.isDown('e') then
+	  mouse:move(-10, 0)
+  	elseif love.keyboard.isDown("r") then -- no control during kitchen challenge
+	  mouse:move(10, 0)
+  	end
+
+end
+end
 function Kitchen:draw(dt)
 
 
@@ -135,8 +163,8 @@ function Kitchen:draw(dt)
 	--fruits[2]:draw(dt)
 	--love.graphics.setBackgroundColor(color)
 
-
-
+	mouse:draw('fill')
+	rect:draw('fill')
 	-- name:draw()
 	-- --name2:draw()
     lol:draw()

@@ -58,6 +58,10 @@ function Player:update(dt)
 
 end
 
+function Player:getBB()
+	return self.bb
+end
+
 function Player:getX()
 	return self.pos.x
 end

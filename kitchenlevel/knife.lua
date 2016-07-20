@@ -48,4 +48,8 @@ function Knife:getImg()
 	return self.img
 end
 
+function Knife:getBB()
+	return self.bb
+end
+
 return Knife
