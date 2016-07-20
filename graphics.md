@@ -1,0 +1,19 @@
+graphics to do
+- [x] title
+- [ ] intro
+- [ ] living room bg
+- [ ] piano
+- [ ] kitchen bg
+- [x] knife
+- [x] fork
+- [ ] hallway / between challenges
+- [ ] stairs
+- [ ] bedroom
+- [ ] charger
+- [ ] cellphone
+- [ ] ending
+- [x] main character neutral
+- [ ] walking cycle
+- [ ] running cycle
+- [x] jump
+- [x] duck
