@@ -13,7 +13,6 @@ graphics to do
 - [ ] cellphone
 - [ ] ending
 - [x] main character neutral
-- [ ] walking cycle
 - [ ] running cycle
 - [x] jump
 - [x] duck
