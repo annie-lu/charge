@@ -1,14 +1,14 @@
 graphics to do
 - [x] title
 - [ ] intro
-- [ ] living room bg
+- [x] living room bg
 - [ ] piano
-- [ ] kitchen bg
+- [x] kitchen bg
 - [x] knife
 - [x] fork
 - [ ] hallway / between challenges
 - [ ] stairs
-- [ ] bedroom
+- [x] bedroom bg
 - [ ] charger
 - [ ] cellphone
 - [ ] ending
