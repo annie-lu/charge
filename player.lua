@@ -40,11 +40,11 @@ function Player:update(dt)
 
   if love.keyboard.isDown('w') then
     self.delta.y = - self.speed
-  elseif love.keyboard.isDown("a") then -- no control during kitchen challenge
+  elseif love.keyboard.isDown("a") and Gamestate.current() ~= kitchen then -- no control during kitchen challenge
     self.delta.x = - self.speed
   elseif love.keyboard.isDown("s") then
     self.delta.y = self.speed
-  elseif love.keyboard.isDown("d") then -- no control during kitchen challenge
+  elseif love.keyboard.isDown("d") and Gamestate.current() ~= kitchen then -- no control during kitchen challenge
     self.delta.x =  self.speed
   end
 
