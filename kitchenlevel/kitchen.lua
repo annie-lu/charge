@@ -17,14 +17,14 @@ local hit = 0
 
 --collider = HC.new(850)
 
-		color = {0, 0, 0}
+	color = {0, 0, 0}
 	--Timer.tween(5, color, {0, 0, 255}, 'in-out-quad')
 
 	--math.randomseed(os.time())
 	--name = Knife(math.random(700, 1000), math.random(300, 600))
 
-	math.randomseed(os.time())
-	fruits[1] = Knife(math.random(700, 1000), math.random(400, 600))
+	--math.randomseed(os.time())
+	fruits[1] = Knife(1000, math.random(400, 600))
     --math.randomseed(os.time())
     --fruits[2] = Knife(math.random(300, 1000), math.random(400, 600))
     --math.randomseed(os.time())
@@ -48,6 +48,7 @@ local hit = 0
 
 	--while lol:getHealth() == 30 do
 function tick()
+
     	math.randomseed(os.time())
 		local pp = math.random(2)
         --math.randomseed(os.time())
@@ -60,6 +61,7 @@ function tick()
 		else
         	fruits[#fruits + 1] = Knife(1000, y)
 		end
+
 end
 
 handle = Timer.every(3, tick)
@@ -84,8 +86,11 @@ handle = Timer.every(3, tick)
 
 function Kitchen:update(dt)
 
-	if love.keyboard.isDown("p") then
+	if lol:dead() then
 		Timer.cancel(handle)
+		for k in pairs(fruits) do
+			fruits[k] = nil
+		end
 	end
 
 	--bullets[1]:moveTo(love.mouse.getPosition())
@@ -111,10 +116,9 @@ function Kitchen:update(dt)
 		if help:collidesWith(lol:getBB()) then
         		hit = hit + fruits[i]:getDamage()
 				lol:setHealth(lol:getHealth() - fruits[i]:getDamage())
-    	end
-
-
-		if fruits[i]:getX() < -220 then -- just a little more than the width of the knife
+				table.remove(fruits,i)
+				i = i-1
+		elseif fruits[i]:getX() < -220 then -- just a little more than the width of the knife
 			table.remove(fruits, i)
 			i = i -1
 
@@ -180,6 +184,7 @@ function Kitchen:update(dt)
 end
 function Kitchen:draw(dt)
 
+	lol:draw()
 	--bullets[1]:draw(dt)
 
 	for i = 1, #fruits do
@@ -192,7 +197,7 @@ function Kitchen:draw(dt)
 	--rect:draw('fill')
 	-- name:draw()
 	-- --name2:draw()
-    lol:draw()
+
 	-- name3:draw()
 	-- bb:draw()
 	-- triangle:draw()
@@ -202,20 +207,23 @@ function Kitchen:draw(dt)
 	-- height = love.graphics.getHeight()
 	-- love.graphics.print("Player: X " .. lol:getX() .. "  Y " .. lol:getY(), 100, 100)
 	-- local cx, cy = bb:center()
-	love.graphics.print(#fruits, 100, 300)
-		   love.graphics.print("Press p to end the attack", 600, 50)
+	--love.graphics.print(#fruits, 100, 300)
+	if(lol:getHealth() > 0) then
+		love.graphics.rectangle("fill", 50, 50, lol:getHealth() * 10, 10)
+	end
+	love.graphics.print("Health: "..lol:getHealth(), 100, 80)
 
 	--love.graphics.print(fruits[1]:getImg():getWidth(), 100, 200)
 
-	love.graphics.print(hit, 800, 50)
+	--love.graphics.print(hit, 800, 50)
 	--print messages
-    for i = 1,#text do
+    --for i = 1,#text do
        --love.graphics.setColor(255,255,255, 255 - (i-1) * 6)
-       love.graphics.print(text[#text - (i-1)], 10, i * 15)
-    end
+      -- love.graphics.print(text[#text - (i-1)], 10, i * 15)
+--    end
 
     -- shapes can be drawn to the screen
-    love.graphics.setColor(255,255,255)
+    --love.graphics.setColor(255,255,255)
     -- rect:draw('line')
 	-- 	rect2:draw('fill')
     --mouse:draw('fill')

@@ -15,10 +15,10 @@ function Player:init(x,y,xdirection,ydirection)
     self.delta = vector(0, 0)
 		self.xdirection = xdirection
 		self.ydirection = ydirection
-
+		self.isDead = false
 	self.original = vector(self.x, self.y)
 
-	self.bb = HC.rectangle(self.x + 30, self.y, 5, self.img:getHeight())
+	self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-50)
 	self.obb = vector(self.bb:center())
 
 	--h = {self.health, {0, 255, 0}}
@@ -27,11 +27,12 @@ function Player:init(x,y,xdirection,ydirection)
 end
 
 function Player:draw()
+
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 	--love.graphics.setColor(h[2])
-	love.graphics.rectangle("fill", 50, 50, self.health * 10, 10)
-	--love.graphics.setColor(0, 255, 0)
-	self.bb:draw()
+
+	--love.graphics.setColor(0, 255, 0:
+	--self.bb:draw()
 end
 
 
@@ -54,7 +55,7 @@ function Player:update(dt)
 
 	self.re = self.original - self.pos
 
-	self.bb:moveTo(self.pos.x + self.img:getWidth(), self.pos.y + self.img:getHeight() / 2)--self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
+	self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight() / 2 + 15)--self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
 
 
 
@@ -77,11 +78,21 @@ function Player:getImg()
 end
 
 function Player:getHealth()
+	if(self.health <= 0) then
+		return 0
+	end
 	return self.health
 end
 
 function Player:setHealth(k)
 	self.health = k
+end
+
+function Player:dead()
+	if self.health <= 0 then
+		self.isDead = true
+	end
+	return self.isDead
 end
 
 return Player
