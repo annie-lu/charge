@@ -28,7 +28,7 @@ local hit = 0
     fruits[2] = Knife(math.random(300, 1000), math.random(400, 600))
     math.randomseed(os.time())
     fruits[3] = Knife(math.random(300, 1000), math.random(400, 600))
-    lol = Player(100,350)
+    lol = Player(100,350,false,true)
 	original = vector(lol:getX(), lol:getY())
 
 	math.randomseed(os.time())
@@ -178,8 +178,10 @@ function Kitchen:draw(dt)
 	-- love.graphics.print("Player: X " .. lol:getX() .. "  Y " .. lol:getY(), 100, 100)
 	-- local cx, cy = bb:center()
 	love.graphics.print(#fruits, 100, 300)
+		   love.graphics.print("Press p to end the attack", 600, 50)
+
 	--love.graphics.print(fruits[1]:getImg():getWidth(), 100, 200)
-    love.graphics.print("Press p to end the attack", 600, 50)
+
 	love.graphics.print(hit, 800, 50)
 	--print messages
     -- for i = 1,#text do

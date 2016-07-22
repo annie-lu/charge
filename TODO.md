@@ -7,3 +7,6 @@
 - [ ] introduction
 - [ ] between challenges
 - [ ] kitchen level
+- [ ] stairs level
+- [ ] living room level
+- [ ] bedroom level
