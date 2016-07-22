@@ -4,7 +4,7 @@ local Ttimer = require 'hump.timer'
 --local HC = require 'hc'
 local Player = Class{}
 
-function Player:init(x,y)
+function Player:init(x,y,xdirection,ydirection)
 
 		self.speed = 100
     self.health = 30
@@ -13,6 +13,8 @@ function Player:init(x,y)
     self.img = love.graphics.newImage("player.png")
 		self.pos = vector(self.x, self.y)
     self.delta = vector(0, 0)
+		self.xdirection = xdirection
+		self.ydirection = ydirection
 
 	self.original = vector(self.x, self.y)
 
@@ -38,13 +40,13 @@ function Player:update(dt)
 
 	Ttimer.update(dt)
 
-  if love.keyboard.isDown('w') then
+  if love.keyboard.isDown('w') and self.ydirection==true then
     self.delta.y = - self.speed
-  elseif love.keyboard.isDown("a") and Gamestate.current() ~= kitchen then -- no control during kitchen challenge
+  elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
     self.delta.x = - self.speed
-  elseif love.keyboard.isDown("s") then
+  elseif love.keyboard.isDown("s") and self.ydirection==true then
     self.delta.y = self.speed
-  elseif love.keyboard.isDown("d") and Gamestate.current() ~= kitchen then -- no control during kitchen challenge
+  elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
     self.delta.x =  self.speed
   end
 
