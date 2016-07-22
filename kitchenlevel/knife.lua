@@ -19,7 +19,7 @@ function Knife:init(x, y)
 		--  	self.x + self.img:getWidth() - 15,  self.y + 15,
 		--  	self.x + self.img:getWidth() - 15, self.y + 38,
 		--  	self.x + 57, self.y + 38)
-		self.bb = HC.point(self.x + 10, self.y + 28)
+		self.bb = HC.point( self.x + 10,  self.y + 28)
 		 --self.bb:scale(0.4, self.bb:center())
 
 		 self.test = vector(self.bb:center())

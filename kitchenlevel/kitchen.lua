@@ -10,7 +10,7 @@ local vector = require 'hump.vector'
 local Timer = require 'hump.timer'
 local fruits = {}
 local timer = Timer.new()
-
+local text = {}
 local name, name2, lol, name3
 local hit = 0
 
@@ -60,18 +60,18 @@ end
 handle = Timer.every(1, tick)
 
 -- player box, knife box, fork box
-
-function on_collide(dt, shape_a, shape_b)
-	if shape_a == Knife and shape_b == Player then
-		hit = hit + 1
-	elseif shape_a == Player and shape_b == Knife then
-		hit = hit + 1
-	elseif shape_a == Fork and shape_b == Player then
-		hit = hit + 1
-	elseif shape_a == Player and shape_b == Fork then
-		hit = hit + 1
-	end
-end
+--
+-- function on_collide(dt, shape_a, shape_b)
+-- 	if shape_a == Knife and shape_b == Player then
+-- 		hit = hit + 1
+-- 	elseif shape_a == Player and shape_b == Knife then
+-- 		hit = hit + 1
+-- 	elseif shape_a == Fork and shape_b == Player then
+-- 		hit = hit + 1
+-- 	elseif shape_a == Player and shape_b == Fork then
+-- 		hit = hit + 1
+-- 	end
+-- end
 
 
 function Kitchen:update(dt)
@@ -101,6 +101,14 @@ function Kitchen:update(dt)
 		end
     end
 
+
+	for i = #fruits, 1, -1 do
+
+		if fruits[i]:getBB():collidesWith(lol:getBB()) then
+        		hit = hit + 1
+    	end
+	end
+
 	-- for shape, delta  in pairs(HC.collisions(lol:getBB())) do
 	-- 	shape:move(delta.x, delta.y)
 	-- end
@@ -128,30 +136,30 @@ function Kitchen:update(dt)
 	-- 			if(shape == rect2) then
 	-- 				rect2:rotate(dt)
 	-- 			end
-    --     text[#text+1] = string.format("Colliding. Separating vector = (%s,%s)",
-    --                                   delta.x, delta.y)
+
     -- end
     --
     -- while #text > 40 do
     --     table.remove(text, 1)
     -- end
 
-	local collisions = HC.collisions(rect)
-	for other, separating_vector in pairs(collisions) do
-    	--rect:move(-separating_vector.x, -separating_vector.y)
-    	other:move( -separating_vector.x,  -separating_vector.y)
-	end
+	-- local collisions = HC.collisions(rect)
+	-- for other, separating_vector in pairs(collisions) do
+    -- 	--rect:move(-separating_vector.x, -separating_vector.y)
+	-- 	text[#text+1] = string.format("Colliding. Separating vector = (%s,%s)",
+	-- 								  other.x, other.y)
+	-- end
 
-	if(love.keyboard.isDown('y')) then
+	--if(love.keyboard.isDown('y')) then
 		mouse:moveTo(love.mouse.getPosition())
-	else
-	if love.keyboard.isDown('e') then
-	  mouse:move(-10, 0)
-  	elseif love.keyboard.isDown("r") then -- no control during kitchen challenge
-	  mouse:move(10, 0)
-  	end
+	-- else
+	-- if love.keyboard.isDown('e') then
+	--   mouse:move(-10, 0)
+ --  	elseif love.keyboard.isDown("r") then -- no control during kitchen challenge
+	--   mouse:move(10, 0)
+ --  	end
 
-end
+--end
 end
 function Kitchen:draw(dt)
 
@@ -184,10 +192,10 @@ function Kitchen:draw(dt)
 
 	love.graphics.print(hit, 800, 50)
 	--print messages
-    -- for i = 1,#text do
-    --    love.graphics.setColor(255,255,255, 255 - (i-1) * 6)
-    --    --love.graphics.print(text[#text - (i-1)], 10, i * 15)
-    -- end
+    for i = 1,#text do
+       --love.graphics.setColor(255,255,255, 255 - (i-1) * 6)
+       love.graphics.print(text[#text - (i-1)], 10, i * 15)
+    end
 
     -- shapes can be drawn to the screen
     love.graphics.setColor(255,255,255)
