@@ -32,7 +32,7 @@ sandstorm = {"b","b","b","b","b","b","b",
 }
 
 i = 1
-final = 2 --should be 84
+final = 50 --should be 84
 
 
 function Piano:draw()
