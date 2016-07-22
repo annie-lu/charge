@@ -1,6 +1,6 @@
 Gamestate = require 'hump.gamestate'
 
-local Introduction = require 'pianolevel.piano'
+local Introduction = require 'intro'
 
 function love.load()
     Gamestate.registerEvents()

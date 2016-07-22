@@ -1,3 +1,30 @@
+
+
+--[[
+i understand kinematics??
+
+v = instantaneous velocity
+a = acceleration (either 9.8 or 0)
+d = distance traveled
+x = x position
+y = y position
+when no keys are pressed + floor "collision"
+
+player has v = 0, a = 0
+when w released
+
+player has some set starting velocity (where velocity > 0), a = 9.8
+when a or d pressed
+
+player has some set starting velocity (where velocity > 0) and assume no air resistance (no acceleration in x direction)
+when s pressed or released
+
+nothing happens lol
+how to determine position
+
+x = x + d , y = y + d
+]]--
+
 local Class = require "hump.class"
 local vector = require "hump.vector"
 local Ttimer = require 'hump.timer'
@@ -5,8 +32,7 @@ local Ttimer = require 'hump.timer'
 local Player = Class{}
 
 function Player:init(x,y,xdirection,ydirection)
-
-		self.speed = 100
+		self.speed = vector(300,400)
     self.health = 30
 		self.x = x
 		self.y = y
@@ -36,7 +62,6 @@ function Player:draw()
 	--self.bb:draw()
 end
 
-
 function Player:update(dt)
 
 
@@ -44,20 +69,20 @@ function Player:update(dt)
 
 
 
-  if love.keyboard.isDown('w') and self.ydirection==true then
-	   	self.delta.y = -self.speed
+  if love.keyboard.isDown('w') and self.ydirection==true and self.pos.y == 400 then
+	   	self.delta.y = -self.speed.y
   elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
-    self.delta.x = - self.speed
-  elseif love.keyboard.isDown("s") and self.ydirection==true then
-    self.delta.y = self.speed
+    self.delta.x = - self.speed.x
   elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
-    self.delta.x =  self.speed
+    self.delta.x =  self.speed.x
   end
 
-	self.delta.y = self.delta.y + self.speed * 4 * dt
+	self.delta.y = self.delta.y + self.speed.y * 1.2 * dt
 
 	if(self.delta.x > 0) then
-		self.delta.x = self.delta.x - self.speed * 2 * dt
+		self.delta.x = self.delta.x - self.speed.x * 1 * dt
+	elseif(self.delta.x < 0) then
+		self.delta.x = self.delta.x + self.speed.x * 1 * dt
 	end
 
 	self.pos = self.pos + self.delta * dt
