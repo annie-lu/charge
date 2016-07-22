@@ -1,5 +1,6 @@
 local Introduction = {}
 local Kitchen = require 'kitchenlevel.kitchen'
+local Stairs = require 'stairslevel.stairs'
 local IDK = require 'testhump.game'
 
 function Introduction:draw()
@@ -9,7 +10,7 @@ end
 
 function Introduction:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(Kitchen)
+        Gamestate.switch(Stairs)
     else
         Gamestate.switch(IDK)
       end
