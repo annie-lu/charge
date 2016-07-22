@@ -7,18 +7,19 @@ local Knife = Class{}
 function Knife:init(x, y)
 		self.damage = 9
 		self.speed = 5
-    self.acceleration = 50 -- just to test
+    self.acceleration = 10 -- just to test
 		self.x = x
 		self.y = y
     self.img = love.graphics.newImage("kitchenlevel/knife.png")
 		self.pos = vector(self.x, self.y) --vector(400, 300)
 		self.original = self.pos
 		self.delta = vector(0, 0)
-		self.bb = HC.polygon(self.x + 10, self.y + 28,
-			self.x + 40, self.y + 15,
-		 	self.x + self.img:getWidth() - 15,  self.y + 15,
-		 	self.x + self.img:getWidth() - 15, self.y + 38,
-		 	self.x + 57, self.y + 38)
+		-- self.bb = HC.polygon(self.x + 10, self.y + 28,
+		-- 	self.x + 40, self.y + 15,
+		--  	self.x + self.img:getWidth() - 15,  self.y + 15,
+		--  	self.x + self.img:getWidth() - 15, self.y + 38,
+		--  	self.x + 57, self.y + 38)
+		self.bb = HC.point(self.x + 10, self.y + 28)
 		 --self.bb:scale(0.4, self.bb:center())
 
 		 self.test = vector(self.bb:center())
