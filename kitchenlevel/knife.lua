@@ -7,7 +7,7 @@ local Knife = Class{}
 function Knife:init(x, y)
 		self.damage = 9
 		self.speed = 5
-    self.acceleration = 10 -- just to test
+    self.acceleration = 50 -- just to test
 		self.x = x
 		self.y = y
     self.img = love.graphics.newImage("kitchenlevel/knife.png")
@@ -27,10 +27,10 @@ end
 
 function Knife:draw()
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
-	self.bb:draw()
-	love.graphics.print("Knife X: " .. self.pos.x .. " Y: " .. self.pos.y, 400, 100)
-	local cx, cy = self.bb:center()
-	love.graphics.print("BB X: " .. cx .. " Y: " .. cy, 400, 200)
+	--self.bb:draw()
+	--love.graphics.print("Knife X: " .. self.pos.x .. " Y: " .. self.pos.y, 400, 100)
+	--local cx, cy = self.bb:center()
+	--love.graphics.print("BB X: " .. cx .. " Y: " .. cy, 400, 200)
 end
 
 function Knife:update(dt)
@@ -42,7 +42,11 @@ function Knife:update(dt)
 end
 
 function Knife:getX()
-	return self.pos.x;
+	return self.pos.x
+end
+
+function Knife:getY()
+	return 600
 end
 
 function Knife:getImg()
@@ -51,6 +55,10 @@ end
 
 function Knife:getBB()
 	return self.bb
+end
+
+function Knife:getDamage()
+	return self.damage
 end
 
 return Knife

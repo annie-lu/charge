@@ -9,6 +9,7 @@ HC = require 'hc'
 local vector = require 'hump.vector'
 local Timer = require 'hump.timer'
 local fruits = {}
+local bullets = {}
 local timer = Timer.new()
 local text = {}
 local name, name2, lol, name3
@@ -19,45 +20,52 @@ local hit = 0
 		color = {0, 0, 0}
 	--Timer.tween(5, color, {0, 0, 255}, 'in-out-quad')
 
-	math.randomseed(os.time())
+	--math.randomseed(os.time())
 	--name = Knife(math.random(700, 1000), math.random(300, 600))
 
 	math.randomseed(os.time())
 	fruits[1] = Knife(math.random(700, 1000), math.random(400, 600))
-    math.randomseed(os.time())
-    fruits[2] = Knife(math.random(300, 1000), math.random(400, 600))
-    math.randomseed(os.time())
-    fruits[3] = Knife(math.random(300, 1000), math.random(400, 600))
+    --math.randomseed(os.time())
+    --fruits[2] = Knife(math.random(300, 1000), math.random(400, 600))
+    --math.randomseed(os.time())
+    --fruits[3] = Knife(math.random(300, 1000), math.random(400, 600))
     lol = Player(100,350,false,true)
-	original = vector(lol:getX(), lol:getY())
+	--original = vector(lol:getX(), lol:getY())
 
-	math.randomseed(os.time())
+	--math.randomseed(os.time())
 	--name3 = Fork(math.random(700, 1000), math.random(200, 600))
 
 	--triangle = HC.polygon(100, 100, 200, 300, 300, 400, 500, 600)
 
 	-- add a rectangle to the scene
-    rect = HC.rectangle(200,200,400,20)
+    --rect = HC.rectangle(200,200,400,20)
 		--rect2 = HC.rectangle(600, 600, 40, 40)
     -- add a circle to the scene
-    mouse = HC.circle(400,300,20)
+    --mouse = HC.circle(400,300,20)
 
-	mouse:moveTo(love.mouse.getPosition())
+	--mouse:moveTo(love.mouse.getPosition())
 
 
 	--while lol:getHealth() == 30 do
 function tick()
     	math.randomseed(os.time())
 		local pp = math.random(2)
-        math.randomseed(os.time())
+        --math.randomseed(os.time())
+		--local x = math.random(1000, 1100)
+		--math.randomseed(os.time())
+		local y = math.random(400, 700)
 		if pp == 1 then
-			fruits[#fruits + 1] = Fork(math.random(1000, 1100), math.random(400, 600))
+
+			fruits[#fruits + 1] = Fork(1000, y)
 		else
-        	fruits[#fruits + 1] = Knife(math.random(1000, 1100), math.random(400, 600))
+        	fruits[#fruits + 1] = Knife(1000, y)
 		end
 end
 
-handle = Timer.every(1, tick)
+handle = Timer.every(3, tick)
+
+--bullets[1] = HC.point(love.mouse.getX(), love.mouse.getY())
+
 
 -- player box, knife box, fork box
 --
@@ -79,6 +87,14 @@ function Kitchen:update(dt)
 	if love.keyboard.isDown("p") then
 		Timer.cancel(handle)
 	end
+
+	--bullets[1]:moveTo(love.mouse.getPosition())
+
+	-- if fruits[1]:getBB():collidesWith(lol:getBB()) or
+	-- bullets[1]:collidesWith(lol:getBB()) then
+	-- 	hit = hit + 1
+	-- end
+
 	--name:update(dt)
 	--name2:update(dt)
 	lol:update(dt)
@@ -90,8 +106,12 @@ function Kitchen:update(dt)
     for i = #fruits, 1, -1 do
 
 		fruits[i]:update(dt)
-
-
+		local u = fruits[i]:getY()
+		local help = HC.point(fruits[i]:getX() + 10, u + 28)
+		if help:collidesWith(lol:getBB()) then
+        		hit = hit + fruits[i]:getDamage()
+				lol:setHealth(lol:getHealth() - fruits[i]:getDamage())
+    	end
 
 
 		if fruits[i]:getX() < -220 then -- just a little more than the width of the knife
@@ -102,12 +122,9 @@ function Kitchen:update(dt)
     end
 
 
-	for i = #fruits, 1, -1 do
 
-		if fruits[i]:getBB():collidesWith(lol:getBB()) then
-        		hit = hit + 1
-    	end
-	end
+
+
 
 	-- for shape, delta  in pairs(HC.collisions(lol:getBB())) do
 	-- 	shape:move(delta.x, delta.y)
@@ -151,7 +168,7 @@ function Kitchen:update(dt)
 	-- end
 
 	--if(love.keyboard.isDown('y')) then
-		mouse:moveTo(love.mouse.getPosition())
+		--mouse:moveTo(love.mouse.getPosition())
 	-- else
 	-- if love.keyboard.isDown('e') then
 	--   mouse:move(-10, 0)
@@ -163,7 +180,7 @@ function Kitchen:update(dt)
 end
 function Kitchen:draw(dt)
 
-
+	--bullets[1]:draw(dt)
 
 	for i = 1, #fruits do
         fruits[i]:draw(dt)
@@ -171,8 +188,8 @@ function Kitchen:draw(dt)
 	--fruits[2]:draw(dt)
 	--love.graphics.setBackgroundColor(color)
 
-	mouse:draw('fill')
-	rect:draw('fill')
+	--mouse:draw('fill')
+	--rect:draw('fill')
 	-- name:draw()
 	-- --name2:draw()
     lol:draw()
@@ -201,7 +218,7 @@ function Kitchen:draw(dt)
     love.graphics.setColor(255,255,255)
     -- rect:draw('line')
 	-- 	rect2:draw('fill')
-    -- mouse:draw('fill')
+    --mouse:draw('fill')
 
 end
 

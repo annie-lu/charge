@@ -18,18 +18,18 @@ function Player:init(x,y,xdirection,ydirection)
 
 	self.original = vector(self.x, self.y)
 
-	self.bb = HC.rectangle(self.x, self.x, self.img:getWidth(), self.img:getHeight())
+	self.bb = HC.rectangle(self.x + 30, self.y, 5, self.img:getHeight())
 	self.obb = vector(self.bb:center())
 
-	h = {self.health, {0, 255, 0}}
-	Ttimer.tween(10, h, {20, {255, 0, 0}}, 'in-out-quad')
+	--h = {self.health, {0, 255, 0}}
+	--Ttimer.tween(10, h, {self.health, {255, 0, 0}}, 'in-out-quad')
 
 end
 
 function Player:draw()
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
-	love.graphics.setColor(h[2])
-	love.graphics.rectangle("fill", 50, 50, h[1] * 10, 10)
+	--love.graphics.setColor(h[2])
+	love.graphics.rectangle("fill", 50, 50, self.health * 10, 10)
 	--love.graphics.setColor(0, 255, 0)
 	self.bb:draw()
 end
@@ -54,7 +54,7 @@ function Player:update(dt)
 
 	self.re = self.original - self.pos
 
-	self.bb:moveTo(self.pos.x + self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
+	self.bb:moveTo(self.pos.x + self.img:getWidth(), self.pos.y + self.img:getHeight() / 2)--self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
 
 
 
@@ -80,5 +80,8 @@ function Player:getHealth()
 	return self.health
 end
 
+function Player:setHealth(k)
+	self.health = k
+end
 
 return Player
