@@ -17,7 +17,7 @@ local hit = 0
 
 --collider = HC.new(850)
 
-	color = {0, 0, 0}
+	local color = {0, 0, 0}
 	--Timer.tween(5, color, {0, 0, 255}, 'in-out-quad')
 
 	--math.randomseed(os.time())
@@ -29,7 +29,7 @@ local hit = 0
     --fruits[2] = Knife(math.random(300, 1000), math.random(400, 600))
     --math.randomseed(os.time())
     --fruits[3] = Knife(math.random(300, 1000), math.random(400, 600))
-    lol = Player(100,350,false,true)
+    local lol = Player(100,350,false,true)
 	--original = vector(lol:getX(), lol:getY())
 
 	--math.randomseed(os.time())
