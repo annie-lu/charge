@@ -8,5 +8,5 @@
 - [ ] between challenges
 - [ ] kitchen level
 - [ ] stairs level
-- [ ] living room level
+- [x] living room level
 - [ ] bedroom level
