@@ -31,7 +31,7 @@ local Ttimer = require 'hump.timer'
 --local HC = require 'hc'
 local Player = Class{}
 
-function Player:init(x,y,xdirection,ydirection)
+function Player:init(x,y,xdirection,ydirection, groundY)
 		self.speed = vector(300,400)
     self.health = 30
 		self.x = x
@@ -47,9 +47,14 @@ function Player:init(x,y,xdirection,ydirection)
 	self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-15)
 	self.obb = vector(self.bb:center())
 
+
 	self.test = 0
 	--h = {self.health, {0, 255, 0}}
 	--Ttimer.tween(10, h, {self.health, {255, 0, 0}}, 'in-out-quad')
+    self.blah = groundY
+	self.bottomBB = HC.rectangle(self.x - 10, self.y, self.img:getWidth()-40, 10)
+	self.platforms = {}
+	--self.ground = ground
 
 end
 
@@ -58,8 +63,8 @@ function Player:draw()
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 	--love.graphics.setColor(h[2])
 	love.graphics.print(self.pos.x .. ", " .. self.pos.y, 500, 100)
-	love.graphics.print(self.test, 900, 100)
-	self.bb:draw()
+	love.graphics.print(self.test, 800, 100)
+	self.bottomBB:draw()
 end
 
 function Player:update(dt)
@@ -67,10 +72,21 @@ function Player:update(dt)
 
 	Ttimer.update(dt)
 
+	if self.platforms[1]:collidesWith(self.bottomBB) then
+		test = test + 1
+	end
 
-
-  if love.keyboard.isDown('w') and self.ydirection==true and self.pos.y == 400 then
-	   	self.delta.y = -self.speed.y
+  if love.keyboard.isDown('w') and self.ydirection == true then
+	  for i = 1, #self.platforms, 1 do
+		  if self.platforms[i]:collidesWith(self.bottomBB) then
+			  test = test + 1
+		  	local x1, y1, x2, y2 = self.platforms[i]:bbox()
+			if self.pos.x >= x1 and self.pos.x <= x2 then
+	   			self.delta.y = -self.speed.y
+				self.blah = (y1 + y2) / 2
+			end
+		  end
+	  end
   elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
     self.delta.x = - self.speed.x
   elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
@@ -92,12 +108,14 @@ function Player:update(dt)
 	self.re = self.original - self.pos
 
 	self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight() / 2 + 5)--self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
+	self.bottomBB:moveTo(self.pos.x + 50, self.pos.y + self.img:getHeight() - 10)
 
 	if self.pos.y < 0 then
 		self.pos.y = 0
-	elseif self.pos.y > 400 then
-		self.pos.y = 400
+	elseif self.pos.y > self.blah then
+		self.pos.y = self.blah
 		self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight()/2 + 5)
+		self.bottomBB:moveTo(self.pos.x + 50, self.pos.y + self.img:getHeight() - 10)
 	end
 
 	if self.pos.x < -30 then
@@ -140,6 +158,21 @@ function Player:dead()
 		self.isDead = true
 	end
 	return self.isDead
+end
+--
+--
+--
+function Player:setBlah(t)
+    self.blah = t
+end
+
+function Player:getBotBB()
+	return self.bottomBB
+end
+
+function Player:addPlatform(platform)
+	self.platforms[#self.platforms + 1] = platform
+
 end
 
 return Player
