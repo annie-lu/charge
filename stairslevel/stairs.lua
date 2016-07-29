@@ -1,4 +1,5 @@
 Gamestate = require 'hump.gamestate'
+Piano = require 'pianolevel.piano'
 
 local Stairs = {}
 
@@ -24,11 +25,22 @@ end
 function Stairs:draw(dt)
 
 
+<<<<<<< Updated upstream
     love.graphics.print("" .. text, 400, 400)
+=======
+        love.graphics.print("press enter to continue")
+
+>>>>>>> Stashed changes
     rect:draw(dt)
     rect2:draw(dt)
     lol:draw(dt)
 
+end
+
+function Stairs:keyreleased(key, code)
+    if key == 'return' then
+        Gamestate.switch(Piano)
+    end
 end
 
 return Stairs

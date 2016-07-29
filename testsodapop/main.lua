@@ -4,10 +4,10 @@ function love.load()
   playerSprite = sodapop.newAnimatedSprite(100, 200)
   playerSprite:addAnimation('run', {
     image        = love.graphics.newImage 'run.png',
-    frameWidth   = 143,
-    frameHeight  = 200,
+    frameWidth   = 146.17,
+    frameHeight  = 204,
     frames       = {
-      {1, 1, 6, 1, 0.08},
+      {1, 1, 12, 1, 0.08},
     },
   })
   playerSprite:addAnimation('duck', {
