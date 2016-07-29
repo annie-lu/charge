@@ -63,9 +63,11 @@ function Player:draw()
 
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 	--love.graphics.setColor(h[2])
-	love.graphics.print(self.pos.x .. ", " .. self.pos.y, 500, 100)
-	love.graphics.print("Test: " .. self.test, 800, 100)
-	love.graphics.print("X Left: "..x1 .. "   X Right: " .. x2, 800, 200)
+	love.graphics.print("Self: " .. self.pos.x .. ", " .. self.pos.y, 500, 100)
+	love.graphics.print("Self Collision: " .. self.test, 800, 100)
+	love.graphics.print("Shape: X Left: "..x1 .. "   X Right: " .. x2, 750, 200)
+	love.graphics.print("Current Ground Level: " .. self.blah, 750, 300)
+	love.graphics.print("num in platforms: " .. #self.platforms, 750, 400)
 	self.bottomBB:draw()
 end
 
@@ -75,7 +77,7 @@ function Player:update(dt)
 	Ttimer.update(dt)
 
 	for i = 1, #self.platforms, 1 do
-		if self.platforms[i]:collidesWith(self.bottomBB) then
+		if self.bottomBB:collidesWith(self.platforms[i]) then--self.platforms[i]:collidesWith(self.bottomBB) then
 			self.test = self.pos.x
 
 		  x1, y1, x2, y2 = self.platforms[i]:bbox()
@@ -83,9 +85,12 @@ function Player:update(dt)
 
 			  self.blah = self.pos.y--//(y1 + y2) / 2
 			  --discrepancy between player x y and rectangle x y
-		  else
-			  self.blah = 700
 		  end
+		--end
+
+		else
+			self.test = -100
+			self.blah = 700
 		end
 	end
 
