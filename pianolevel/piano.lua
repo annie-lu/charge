@@ -33,7 +33,7 @@ sandstorm = {"b","b","b","b","b","b","b",
 }
 
 i = 1
-final = 50 --should be 84
+final = 14 --should be 84
 
 
 function Piano:draw()
@@ -65,7 +65,7 @@ end
     if string.find("abced", key) then
         love.audio.newSource("pianolevel/"..string.upper(key)..".wav", "static"):play()
     end
-    
+
   -- if key == "a" then
   --     a:play()
   -- elseif key == "b" then
