@@ -8,7 +8,7 @@ local rect = HC.rectangle(200, 500, 400, 20)
 local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
 local lol = Player(300, 150, true, true, 800)
 local text = ""
-local test = {}
+--local test = {}
 function Stairs:update(dt)
 
     lol:update(dt)

@@ -30,7 +30,8 @@ local vector = require "hump.vector"
 local Ttimer = require 'hump.timer'
 --local HC = require 'hc'
 local Player = Class{}
-
+--local test = 0
+x1, x2 = 0, 0
 function Player:init(x,y,xdirection,ydirection, groundY)
 		self.speed = vector(300,400)
     self.health = 30
@@ -63,7 +64,8 @@ function Player:draw()
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 	--love.graphics.setColor(h[2])
 	love.graphics.print(self.pos.x .. ", " .. self.pos.y, 500, 100)
-	love.graphics.print(self.test, 800, 100)
+	love.graphics.print("Test: " .. self.test, 800, 100)
+	love.graphics.print("X Left: "..x1 .. "   X Right: " .. x2, 800, 200)
 	self.bottomBB:draw()
 end
 
@@ -72,21 +74,23 @@ function Player:update(dt)
 
 	Ttimer.update(dt)
 
-	if self.platforms[1]:collidesWith(self.bottomBB) then
-		test = test + 1
+	for i = 1, #self.platforms, 1 do
+		if self.platforms[i]:collidesWith(self.bottomBB) then
+			self.test = self.pos.x
+
+		  x1, y1, x2, y2 = self.platforms[i]:bbox()
+		  if self.pos.x >= x1 and self.pos.x <= x2 then
+
+			  self.blah = self.pos.y--//(y1 + y2) / 2
+			  --discrepancy between player x y and rectangle x y
+		  else
+			  self.blah = 700
+		  end
+		end
 	end
 
-  if love.keyboard.isDown('w') and self.ydirection == true then
-	  for i = 1, #self.platforms, 1 do
-		  if self.platforms[i]:collidesWith(self.bottomBB) then
-			  test = test + 1
-		  	local x1, y1, x2, y2 = self.platforms[i]:bbox()
-			if self.pos.x >= x1 and self.pos.x <= x2 then
-	   			self.delta.y = -self.speed.y
-				self.blah = (y1 + y2) / 2
-			end
-		  end
-	  end
+  if love.keyboard.isDown('w') and self.ydirection == true and self.pos.y == self.blah then
+	 self.delta.y = -self.speed.y
   elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
     self.delta.x = - self.speed.x
   elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
