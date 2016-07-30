@@ -10,8 +10,10 @@ local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
 local lol = Player(300, 150, true, true, 800)
 local text = ""
 
-lol:addPlatform(rect2)
 lol:addPlatform(rect)
+lol:addPlatform(rect2)
+lol:addPlatform(rect) --the last platform in the table will only be the one that is interactable with
+                      --why
 
 
 --local test = {}
