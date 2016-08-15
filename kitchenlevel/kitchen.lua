@@ -25,10 +25,10 @@ local hit = 0
 
 	--math.randomseed(os.time())
 	fruits[1] = Knife(1000, math.random(400, 600))
-    --math.randomseed(os.time())
-    --fruits[2] = Knife(math.random(300, 1000), math.random(400, 600))
-    --math.randomseed(os.time())
-    --fruits[3] = Knife(math.random(300, 1000), math.random(400, 600))
+    -- math.randomseed(os.time())
+    -- fruits[2] = Knife(math.random(300, 1000), math.random(400, 600))
+    -- math.randomseed(os.time())
+    -- fruits[3] = Knife(math.random(300, 1000), math.random(400, 600))
     local lol = Player(100,350,false,true)
 	--original = vector(lol:getX(), lol:getY())
 
@@ -54,7 +54,7 @@ function tick()
         --math.randomseed(os.time())
 		--local x = math.random(1000, 1100)
 		--math.randomseed(os.time())
-		local y = math.random(400, 700)
+		local y = math.random(400, 600)
 		if pp == 1 then
 
 			fruits[#fruits + 1] = Fork(1000, y)
@@ -111,9 +111,9 @@ function Kitchen:update(dt)
     for i = #fruits, 1, -1 do
 
 		fruits[i]:update(dt)
-		local u = fruits[i]:getY()
-		local help = HC.point(fruits[i]:getX() + 10, u + 28)
-		if help:collidesWith(lol:getBB()) then
+		--local u = fruits[i]:getY() this as well what even
+		--local help = HC.point(fruits[i]:getX() + 10, u + 28) wtf is this
+		if fruits[i]:getBB():collidesWith(lol:getBB()) then
         		hit = hit + fruits[i]:getDamage()
 				lol:setHealth(lol:getHealth() - fruits[i]:getDamage())
 				table.remove(fruits,i)

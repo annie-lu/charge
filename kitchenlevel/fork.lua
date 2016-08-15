@@ -50,4 +50,8 @@ function Fork:getDamage()
 	return self.damage
 end
 
+function Fork:getBB()
+	return self.bb
+end
+
 return Fork
