@@ -1,7 +1,5 @@
 local Introduction = {}
-local Kitchen = require 'kitchenlevel.kitchen'
-local Stairs = require 'beginning1'
-local IDK = require 'testhump.game'
+local Beginning = require 'beginning1'
 
 local screen= love.graphics.newImage("title.png")
 function Introduction:draw()
@@ -12,7 +10,7 @@ end
 
 function Introduction:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(Stairs)
+        Gamestate.switch(Beginning)
     end
 end
 
