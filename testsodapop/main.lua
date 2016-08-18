@@ -49,19 +49,3 @@ end
 function love.draw()
   playerSprite:draw()
 end
-
-
-function love.update(dt)
-  playerSprite:update(dt)
-end
-
-function love.keypressed(key)
-  if key == 'left' then playerSprite.flipX = true end
-  if key == 'right' then playerSprite.flipX = false end
-  if key == 'down' then playerSprite:switch 'duck' end
-  if key == 'up' then playerSprite:switch 'jump' end
-end
-
-function love.draw()
-  playerSprite:draw()
-end
