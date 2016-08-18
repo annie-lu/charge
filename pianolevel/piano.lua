@@ -17,7 +17,7 @@ bkey = love.graphics.newImage("pianolevel/B.png")
 ckey = love.graphics.newImage("pianolevel/C.png")
 dkey = love.graphics.newImage("pianolevel/D.png")
 ekey = love.graphics.newImage("pianolevel/E.png")
-sheetmusic =  love.graphics.newImage("pianolevel/notes.png")
+
 sandstorm = {"b","b","b","b","b","b","b",
 "b","b","b","b","b","e","e",
 "e","e","e","e","e","d","d",
@@ -53,7 +53,6 @@ elseif love.keyboard.isDown('e') then
 else
 	love.graphics.draw(nokey, 0, 0)
 end
-	love.graphics.draw(sheetmusic, 0, 0)
 end
 
 function Piano:keyreleased( key ) --can we shorten this im still not sure how to use this parameter
