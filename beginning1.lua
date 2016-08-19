@@ -1,6 +1,6 @@
 local Begin = {}
 local Begin2 = require 'beginning2'
-local IDK = require 'testhump.game'
+--local IDK = require 'hump.game'
 
 local screen= love.graphics.newImage("intro1.png")
 function Begin:draw()

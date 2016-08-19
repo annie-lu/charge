@@ -11,6 +11,7 @@ local Piano = {}
 
  -- the "static" tells LÖVE to load the file into memory, good for short sound effects
 --music = love.audio.newSource("techno.ogg") if "static" is omitted, LÖVE will stream the file from disk, good for longer music tracks
+
 nokey = love.graphics.newImage("pianolevel/none.png")
 akey = love.graphics.newImage("pianolevel/A.png")
 bkey = love.graphics.newImage("pianolevel/B.png")

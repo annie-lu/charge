@@ -1,3 +1,6 @@
+
+
+
 Gamestate = require 'hump.gamestate'
 
 local Kitchen = {}
@@ -185,6 +188,7 @@ end
 function Kitchen:draw(dt)
 
 	lol:draw()
+
 	--bullets[1]:draw(dt)
 
 	for i = 1, #fruits do
