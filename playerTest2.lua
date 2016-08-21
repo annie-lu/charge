@@ -30,9 +30,8 @@ local vector = require "hump.vector"
 local Ttimer = require 'hump.timer'
 --local HC = require 'hc'
 local Player = Class{}
---local test = 0
-x1, x2 = 0, 0
-function Player:init(x,y,xdirection,ydirection, groundY)
+
+function Player:init(x,y,xdirection,ydirection)
 		self.speed = vector(300,400)
     self.health = 30
 		self.x = x
@@ -46,16 +45,15 @@ function Player:init(x,y,xdirection,ydirection, groundY)
 	self.original = vector(self.x, self.y)
 
 	self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-15)
+	self.bottomBB = HC.rectangle(self.x - 10, self.y, self.img:getWidth()-40, 10)
+
 	self.obb = vector(self.bb:center())
 
-
 	self.test = 0
+	self.ground = 600
+
 	--h = {self.health, {0, 255, 0}}
 	--Ttimer.tween(10, h, {self.health, {255, 0, 0}}, 'in-out-quad')
-    self.blah = groundY
-	self.bottomBB = HC.rectangle(self.x - 10, self.y, self.img:getWidth()-40, 10)
-	self.platforms = {}
-	--self.ground = ground
 
 end
 
@@ -63,11 +61,9 @@ function Player:draw()
 
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 	--love.graphics.setColor(h[2])
-	love.graphics.print("Self: " .. self.pos.x .. ", " .. self.pos.y, 500, 100)
-	love.graphics.print("Self Collision: " .. self.test, 800, 100)
-	love.graphics.print("Shape: X Left: "..x1 .. "   X Right: " .. x2, 750, 200)
-	love.graphics.print("Current Ground Level: " .. self.blah, 750, 300)
-	love.graphics.print("num in platforms: " .. #self.platforms, 750, 400)
+	love.graphics.print(self.pos.x .. ", " .. self.pos.y, 500, 100)
+	love.graphics.print(self.test, 900, 100)
+	self.bb:draw()
 	self.bottomBB:draw()
 end
 
@@ -76,26 +72,12 @@ function Player:update(dt)
 
 	Ttimer.update(dt)
 
-	for i = 1, #self.platforms, 1 do
-		if self.bottomBB:collidesWith(self.platforms[i]) then--self.platforms[i]:collidesWith(self.bottomBB) then
-		-- 	self.test = self.pos.x
-		  --
-		--   x1, y1, x2, y2 = self.platforms[i]:bbox()
-		--   if self.pos.x >= x1 and self.pos.x <= x2 then
-		  --
-		-- 	  self.blah = self.pos.y--//(y1 + y2) / 2
-		-- 	  --discrepancy between player x y and rectangle x y
-		 --end
-		--end
-			self.blah = self.pos.y
-		else
-			self.test = -100
-			self.blah = 700
-		end
+	if self.ground == nil then
+		self.ground = 600
 	end
 
-  if love.keyboard.isDown('w') and self.ydirection == true and self.pos.y == self.blah then
-	 self.delta.y = -self.speed.y
+  if love.keyboard.isDown('w') and self.ydirection==true and self.pos.y == self.ground then
+	   	self.delta.y = -self.speed.y
   elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
     self.delta.x = - self.speed.x
   elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
@@ -121,10 +103,11 @@ function Player:update(dt)
 
 	if self.pos.y < 0 then
 		self.pos.y = 0
-	elseif self.pos.y > self.blah then
-		self.pos.y = self.blah
+	elseif self.pos.y > self.ground then
+		self.pos.y = self.ground
 		self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight()/2 + 5)
 		self.bottomBB:moveTo(self.pos.x + 50, self.pos.y + self.img:getHeight() - 10)
+
 	end
 
 	if self.pos.x < -30 then
@@ -137,6 +120,10 @@ end
 
 function Player:getBB()
 	return self.bb
+end
+
+function Player:getBotBB()
+	return self.bottomBB
 end
 
 function Player:getX()
@@ -168,20 +155,9 @@ function Player:dead()
 	end
 	return self.isDead
 end
---
---
---
-function Player:setBlah(t)
-    self.blah = t
-end
 
-function Player:getBotBB()
-	return self.bottomBB
-end
-
-function Player:addPlatform(platform)
-	self.platforms[#self.platforms + 1] = platform
-
+function Player:setGround(gr)
+	self.ground = gr
 end
 
 return Player

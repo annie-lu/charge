@@ -12,7 +12,7 @@ end
 
 function BeginTwo:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(Piano)
+        Gamestate.switch(Stairs)
     end
 end
 
