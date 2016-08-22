@@ -1,27 +1,19 @@
-
-
 --[[
 i understand kinematics??
-
 v = instantaneous velocity
 a = acceleration (either 9.8 or 0)
 d = distance traveled
 x = x position
 y = y position
 when no keys are pressed + floor "collision"
-
 player has v = 0, a = 0
 when w released
-
 player has some set starting velocity (where velocity > 0), a = 9.8
 when a or d pressed
-
 player has some set starting velocity (where velocity > 0) and assume no air resistance (no acceleration in x direction)
 when s pressed or released
-
 nothing happens lol
 how to determine position
-
 x = x + d , y = y + d
 ]]--
 
@@ -44,7 +36,7 @@ function Player:init(x,y,xdirection,ydirection)
 		self.isDead = false
 	self.original = vector(self.x, self.y)
 
-	self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-15)
+	self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-50)
 	self.obb = vector(self.bb:center())
 
 	self.test = 0
@@ -59,7 +51,7 @@ function Player:draw()
 	--love.graphics.setColor(h[2])
 	love.graphics.print(self.pos.x .. ", " .. self.pos.y, 500, 100)
 	love.graphics.print(self.test, 900, 100)
-	self.bb:draw()
+	--self.bb:draw()
 end
 
 function Player:update(dt)
@@ -85,19 +77,17 @@ function Player:update(dt)
 		self.delta.x = self.delta.x + self.speed.x * 1 * dt
 	end
 
-
 	self.pos = self.pos + self.delta * dt
 
 
 	self.re = self.original - self.pos
 
-	self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight() / 2 + 5)--self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
+	self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight() / 2 + 15)--self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
 
 	if self.pos.y < 0 then
 		self.pos.y = 0
 	elseif self.pos.y > 400 then
 		self.pos.y = 400
-		self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight()/2 + 5)
 	end
 
 	if self.pos.x < -30 then
