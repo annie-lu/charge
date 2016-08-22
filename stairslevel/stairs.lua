@@ -8,10 +8,11 @@ local Player = require 'playerTest2'
 local rect = HC.rectangle(100, 500, 200, 20)
 local rect3 = HC.rectangle(600, 400, 200, 20)
 local rect2 = HC.rectangle(500, 650, 200, 20)
+local rect4 = HC.rectangle(200, 300, 200, 20)
 --local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
 local lol = Player(600, 100, true, true, 800)
 local text = ""
-local platforms = {rect, rect3, rect2} -- only the last one will be interactable why
+local platforms = {rect, rect3, rect2, rect4} -- only the last one will be interactable why
 -- lol:addPlatform(rect)
 -- lol:addPlatform(rect2)
 -- lol:addPlatform(rect) --the last platform in the table will only be the one that is interactable with
@@ -21,38 +22,46 @@ local xvar = 400
 --local test = {}
 
 function test()
-    for i = 10, 2, -1 do
-        text = text..i
-        --xvar = xvar + 1
-            --body...
+    for i = 1, #platforms, 1 do
+        if lol:getBotBB():collidesWith(platforms[i]) then
+            local x1, y1, x2, y2 = platforms[i]:bbox()
+            lol:setGround(y1 - lol:getImg():getHeight() + 10)
+            break
+        else
+            lol:setGround(600)
+        end
     end
+
 end
 
 function Stairs:update(dt)
 
     lol:update(dt)
+    test()
+
+    
 
     --text = ""
 --    for var= 1,2,3  do
 --        text = key
-        if lol:getBotBB():collidesWith(platforms[1]) then
-            local x1, y1, x2, y2 = platforms[1]:bbox()
-            --text = "l" --only this line works??
-            lol:setGround(y1 - lol:getImg():getHeight() + 10)
-        elseif lol:getBotBB():collidesWith(platforms[2]) then
-            local x1, y1, x2, y2 = platforms[2]:bbox()
-            --text = text .. "l" --only this line works??
-            lol:setGround(y1 - lol:getImg():getHeight() + 10)
-        elseif lol:getBotBB():collidesWith(platforms[3]) then
-            local x1, y1, x2, y2 = platforms[3]:bbox()
-            --text = text .. "l" --only this line works??
-            lol:setGround(y1 - lol:getImg():getHeight() + 10)
-        else
-            lol:setGround(600)
+        -- if lol:getBotBB():collidesWith(platforms[1]) then
+        --     local x1, y1, x2, y2 = platforms[1]:bbox()
+        --     --text = "l" --only this line works??
+        --     lol:setGround(y1 - lol:getImg():getHeight() + 10)
+        -- elseif lol:getBotBB():collidesWith(platforms[2]) then
+        --     local x1, y1, x2, y2 = platforms[2]:bbox()
+        --     --text = text .. "l" --only this line works??
+        --     lol:setGround(y1 - lol:getImg():getHeight() + 10)
+        -- elseif lol:getBotBB():collidesWith(platforms[3]) then
+        --     local x1, y1, x2, y2 = platforms[3]:bbox()
+        --     --text = text .. "l" --only this line works??
+        --     lol:setGround(y1 - lol:getImg():getHeight() + 10)
+        -- else
+        --     lol:setGround(600)
+        --
+        -- end
 
-        end
-
-    test()
+    --test()
     --xvar = xvar + 1
 --    end
 
