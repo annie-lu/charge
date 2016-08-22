@@ -16,33 +16,44 @@ local platforms = {rect, rect3, rect2} -- only the last one will be interactable
 -- lol:addPlatform(rect2)
 -- lol:addPlatform(rect) --the last platform in the table will only be the one that is interactable with
 --                       --why
-
+local xvar = 400
 
 --local test = {}
+
+function test()
+    for i = 10, 2, -1 do
+        text = text..i
+        --xvar = xvar + 1
+            --body...
+    end
+end
+
 function Stairs:update(dt)
 
     lol:update(dt)
 
-    text = ""
+    --text = ""
 --    for var= 1,2,3  do
 --        text = key
         if lol:getBotBB():collidesWith(platforms[1]) then
             local x1, y1, x2, y2 = platforms[1]:bbox()
-            text = text .. "l" --only this line works??
+            --text = "l" --only this line works??
             lol:setGround(y1 - lol:getImg():getHeight() + 10)
         elseif lol:getBotBB():collidesWith(platforms[2]) then
             local x1, y1, x2, y2 = platforms[2]:bbox()
-            text = text .. "l" --only this line works??
+            --text = text .. "l" --only this line works??
             lol:setGround(y1 - lol:getImg():getHeight() + 10)
         elseif lol:getBotBB():collidesWith(platforms[3]) then
             local x1, y1, x2, y2 = platforms[3]:bbox()
-            text = text .. "l" --only this line works??
+            --text = text .. "l" --only this line works??
             lol:setGround(y1 - lol:getImg():getHeight() + 10)
         else
             lol:setGround(600)
 
         end
 
+    test()
+    --xvar = xvar + 1
 --    end
 
     -- for i = 1, #platforms, 1 do
@@ -68,7 +79,7 @@ end
 function Stairs:draw(dt)
 
 
-    love.graphics.print("" .. text, 400, 400)
+    love.graphics.print("" .. text, xvar, 400)
 
         love.graphics.print("press enter to continue")
 
