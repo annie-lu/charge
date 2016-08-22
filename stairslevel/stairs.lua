@@ -9,9 +9,9 @@ local rect = HC.rectangle(100, 500, 200, 20)
 local rect3 = HC.rectangle(600, 400, 200, 20)
 local rect2 = HC.rectangle(500, 650, 200, 20)
 --local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
-local lol = Player(100, 100, true, true, 800)
+local lol = Player(600, 100, true, true, 800)
 local text = ""
-local platforms = {rect2, rect3, rect} -- only the last one will be interactable why
+local platforms = {rect, rect3, rect2} -- only the last one will be interactable why
 -- lol:addPlatform(rect)
 -- lol:addPlatform(rect2)
 -- lol:addPlatform(rect) --the last platform in the table will only be the one that is interactable with
@@ -22,18 +22,28 @@ local platforms = {rect2, rect3, rect} -- only the last one will be interactable
 function Stairs:update(dt)
 
     lol:update(dt)
-    text = #platforms
-    for i = 1, #platforms, 1 do
-        if lol:getBotBB():collidesWith(platforms[i]) then
-            local x1, y1, x2, y2 = platforms[i]:bbox()
-            text = text .. "l"
+
+    text = ""
+--    for var= 1,2,3  do
+--        text = key
+        if lol:getBotBB():collidesWith(platforms[1]) then
+            local x1, y1, x2, y2 = platforms[1]:bbox()
+            text = text .. "l" --only this line works??
+            lol:setGround(y1 - lol:getImg():getHeight() + 10)
+        elseif lol:getBotBB():collidesWith(platforms[2]) then
+            local x1, y1, x2, y2 = platforms[2]:bbox()
+            text = text .. "l" --only this line works??
+            lol:setGround(y1 - lol:getImg():getHeight() + 10)
+        elseif lol:getBotBB():collidesWith(platforms[3]) then
+            local x1, y1, x2, y2 = platforms[3]:bbox()
+            text = text .. "l" --only this line works??
             lol:setGround(y1 - lol:getImg():getHeight() + 10)
         else
             lol:setGround(600)
 
         end
 
-    end
+--    end
 
     -- for i = 1, #platforms, 1 do
     --     local x1, y1, x2, y2 = platforms[i]:bbox()
