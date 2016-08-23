@@ -7,7 +7,7 @@ local Player = require 'playerTest2'
 
 local rect = HC.rectangle(100, 500, 200, 20)
 local rect3 = HC.rectangle(600, 400, 200, 20)
-local rect2 = HC.rectangle(500, 650, 200, 20)
+local rect2 = HC.rectangle(500, 600, 200, 20)
 local rect4 = HC.rectangle(200, 300, 200, 20)
 --local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
 local lol = Player(600, 480, true, true)

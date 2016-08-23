@@ -61,7 +61,7 @@ function Player:draw()
 
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 	--love.graphics.setColor(h[2])
-	love.graphics.print(self.pos.x .. ", " .. self.pos.y, 500, 100)
+	love.graphics.print("SpeedY: " .. self.speed.y, 500, 100)
 	love.graphics.print(self.test, 900, 100)
 	self.bb:draw()
 	self.bottomBB:draw()
@@ -76,7 +76,7 @@ function Player:update(dt)
 		self.ground = 600
 	end
 
-  if love.keyboard.isDown('w') and self.ydirection==true and self.pos.y == self.ground then
+  if love.keyboard.isDown('w') and self.ydirection and self.pos.y == self.ground and self.speed.y == 0 then
 	   	self.delta.y = -self.speed.y
   elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
     self.delta.x = - self.speed.x
