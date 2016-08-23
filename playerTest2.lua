@@ -69,14 +69,6 @@ function Player:draw()
 	self.bottomBB:draw()
 end
 
-function Player:keyreleased(key)
-   if key=="w" and self.ydirection==true then
- 			self.acceleration.y = -100
- 			self.velocity.y=self.speed.y
-		end
-end
-
-
 function Player:update(dt)
 
 
@@ -85,8 +77,8 @@ function Player:update(dt)
 	if self.ground == nil then
 		self.ground = 600
 	end
-	if love.keyboard.isDown("w") and self.ydirection==true then
-		self.acceleration.y = 300
+	if love.keyboard.isDown("w") and self.ydirection==true and self.velocity.y==0 then
+		self.acceleration.y = 500
 		self.velocity.y=-self.speed.y
 	elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
 		self.acceleration.x =  50
