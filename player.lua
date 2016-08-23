@@ -30,7 +30,8 @@ function Player:init(x,y,xdirection,ydirection)
 		self.y = y
     self.img = love.graphics.newImage("player.png")
 		self.pos = vector(self.x, self.y)
-    self.delta = vector(0, 0)
+    self.acceleration = vector(0, 0)
+		self.velocity = vector(0,0)
 		self.xdirection = xdirection
 		self.ydirection = ydirection
 		self.isDead = false
@@ -61,24 +62,25 @@ function Player:update(dt)
 
 
 
-  if love.keyboard.isDown('w') and self.ydirection==true and self.pos.y == 400 then
-	   	self.delta.y = -self.speed.y
+  if love.keyboard.isDown('w') and self.ydirection==true then
+	   	self.acceleration.y = -98
+			self.velocity.y=self.speed.y
   elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
-    self.delta.x = - self.speed.x
+    self.acceleration.x = - 50
+		self.velocity.x=self.speed.x
   elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
-    self.delta.x =  self.speed.x
+    self.acceleration.x =  50
+		self.velocity.x=-self.speed.x
   end
 
-	self.delta.y = self.delta.y + self.speed.y * 1.2 * dt
-
-	if(self.delta.x > 0) then
-		self.delta.x = self.delta.x - self.speed.x * 1 * dt
-	elseif(self.delta.x < 0) then
-		self.delta.x = self.delta.x + self.speed.x * 1 * dt
+	if(self.velocity.x == 0) then
+		self.acceleration.x = 0
+	elseif(self.velocity.y == 0) then
+		self.acceleration.y = 0
 	end
 
-	self.pos = self.pos + self.delta * dt
-
+	self.pos = self.pos + self.velocity * dt
+self.velocity = self.velcoity + self.acceleration*dt
 
 	self.re = self.original - self.pos
 

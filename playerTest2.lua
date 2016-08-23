@@ -32,17 +32,19 @@ local Ttimer = require 'hump.timer'
 local Player = Class{}
 
 function Player:init(x,y,xdirection,ydirection)
-		self.speed = vector(300,400)
-    self.health = 30
-		self.x = x
-		self.y = y
-    self.img = love.graphics.newImage("player.png")
-		self.pos = vector(self.x, self.y)
-    self.delta = vector(0, 0)
-		self.xdirection = xdirection
-		self.ydirection = ydirection
-		self.isDead = false
-	self.original = vector(self.x, self.y)
+	self.speed = vector(100,400)
+	self.health = 30
+	self.x = x
+	self.y = y
+	self.img = love.graphics.newImage("player.png")
+	self.pos = vector(self.x, self.y)
+	self.acceleration = vector(0, 0)
+	self.velocity = vector(0,0)
+	self.xdirection = xdirection
+	self.ydirection = ydirection
+	self.isDead = false
+self.original = vector(self.x, self.y)
+
 
 	self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-15)
 	self.bottomBB = HC.rectangle(self.x - 10, self.y, self.img:getWidth()-40, 10)
@@ -61,11 +63,19 @@ function Player:draw()
 
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 	--love.graphics.setColor(h[2])
-	love.graphics.print("SpeedY: " .. self.speed.y, 500, 100)
+	love.graphics.print("VelocityY: " .. self.velocity.y, 500, 100)
 	love.graphics.print(self.test, 900, 100)
 	self.bb:draw()
 	self.bottomBB:draw()
 end
+
+function Player:keyreleased(key)
+   if key=="w" and self.ydirection==true then
+ 			self.acceleration.y = -100
+ 			self.velocity.y=self.speed.y
+		end
+end
+
 
 function Player:update(dt)
 
@@ -75,25 +85,29 @@ function Player:update(dt)
 	if self.ground == nil then
 		self.ground = 600
 	end
-
-  if love.keyboard.isDown('w') and self.ydirection and self.pos.y == self.ground and self.speed.y == 0 then
-	   	self.delta.y = -self.speed.y
-  elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
-    self.delta.x = - self.speed.x
-  elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
-    self.delta.x =  self.speed.x
-  end
-
-	self.delta.y = self.delta.y + self.speed.y * 1.2 * dt
-
-	if(self.delta.x > 0) then
-		self.delta.x = self.delta.x - self.speed.x * 1 * dt
-	elseif(self.delta.x < 0) then
-		self.delta.x = self.delta.x + self.speed.x * 1 * dt
+	if love.keyboard.isDown("w") and self.ydirection==true then
+		self.acceleration.y = 300
+		self.velocity.y=-self.speed.y
+	elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
+		self.acceleration.x =  50
+		self.velocity.x=-self.speed.x
+	elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
+		self.acceleration.x =  -50
+		self.velocity.x=self.speed.x
 	end
 
+	if(math.abs(self.velocity.x) < 10) then
+		self.velocity.x = 0
+		self.acceleration.x = 0
+end
+	if(self.pos.y == self.ground and self.velocity.y>0) then
+		self.velocity.y = 0
+		self.acceleration.y = 0
+	end
 
-	self.pos = self.pos + self.delta * dt
+	self.pos = self.pos + self.velocity * dt
+	self.velocity = self.velocity + self.acceleration*dt
+
 
 
 	self.re = self.original - self.pos
