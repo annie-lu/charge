@@ -24,7 +24,7 @@ local Ttimer = require 'hump.timer'
 local Player = Class{}
 
 function Player:init(x,y,xdirection,ydirection)
-		self.speed = vector(300,400)
+		self.speed = vector(100,400)
     self.health = 30
 		self.x = x
 		self.y = y

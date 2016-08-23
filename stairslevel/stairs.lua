@@ -10,7 +10,7 @@ local rect3 = HC.rectangle(600, 400, 200, 20)
 local rect2 = HC.rectangle(500, 600, 200, 20)
 local rect4 = HC.rectangle(200, 300, 200, 20)
 --local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
-local lol = Player(600, 480, true, true)
+local lol = Player(300, 480, true, true)
 local text = ""
 local platforms = {rect, rect3, rect2, rect4} -- only the last one will be interactable why
 -- lol:addPlatform(rect)
