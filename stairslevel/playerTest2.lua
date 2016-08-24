@@ -66,7 +66,7 @@ function Player:draw()
 	love.graphics.print("VelocityY: " .. self.velocity.y, 500, 100)
 	love.graphics.print("Self.pos.y: " .. self.pos.y, 500, 115)
 	love.graphics.print("Self.ground: " .. self.ground, 650, 115)
-	love.graphics.print("Self.ground == self.pos.y: " .. tostring(self.pos.y == self.ground), 500, 150)
+	love.graphics.print("Self.ground == self.pos.y: " .. tostring(math.floor(self.pos.y) == math.floor(self.ground)), 700, 150)
 	love.graphics.print(self.test, 900, 100)
 	self.bb:draw()
 	self.bottomBB:draw()
@@ -80,7 +80,7 @@ function Player:update(dt)
 	if self.ground == nil then
 		self.ground = 500
 	end
-	if love.keyboard.isDown("w") and self.ydirection==true and self.pos.y == self.ground and self.velocity.y==0 then
+	if love.keyboard.isDown("w") and self.ydirection==true and math.floor(self.pos.y) == math.floor(self.ground) and self.velocity.y==0 then
 		self.acceleration.y = 500
 		self.velocity.y=-self.speed.y
 	elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
@@ -96,12 +96,12 @@ function Player:update(dt)
 		self.acceleration.x = 0
 	end
 
-	if(self.pos.y == self.ground and self.velocity.y>0) then
+	if(math.floor(self.pos.y) == math.floor(self.ground) and self.velocity.y>0) then
 		self.velocity.y = 0
 		self.acceleration.y = 0
 	end
 
-	if self.pos.y ~= self.ground and self.acceleration.y == 0 then
+	if math.floor(self.pos.y) ~= math.floor(self.ground) and self.acceleration.y == 0 then
 		self.velocity.y = self.speed.y
 	end
 

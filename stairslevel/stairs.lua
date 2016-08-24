@@ -13,7 +13,7 @@ local rect3 = Platform(600, 400)--HC.rectangle(600, 400, 200, 20)
 local rect2 = Platform(500, 600)--HC.rectangle(500, 600, 200, 20)
 local rect4 = Platform(200, 300)--HC.rectangle(200, 300, 200, 20)
 --local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
-local lol = Player(300, 500, true, true)
+local lol = Player(300, 100, true, true)
 local text = ""
 local platforms = {rect, rect3, rect2, rect4} -- only the last one will be interactable why
 -- lol:addPlatform(rect)
@@ -38,16 +38,19 @@ function tick()
 
 end
 
-handle = Timer.every(3, tick)
+--handle = Timer.every(3, tick)
 
 function Stairs:update(dt)
 
     lol:update(dt)
 
     for i = 1, #platforms, 1 do
-
-        platforms[i]:update(dt)
+        text = ""
+        if love.keyboard.isDown('q') then
+            platforms[i]:update(dt)
+        end
         if lol:getBotBB():collidesWith(platforms[i]:getBB()) then
+            text = "WHAT IS HAPPENING"
             local x1, y1, x2, y2 = platforms[i]:getBB():bbox()
                 lol:setGround(y1 - lol:getImg():getHeight() + 10)
             break
@@ -56,7 +59,7 @@ function Stairs:update(dt)
         end
     end
 
-    Timer.update(dt)
+    --Timer.update(dt)
 
 
 
@@ -107,7 +110,7 @@ end
 function Stairs:draw(dt)
 
 
-    love.graphics.print("" .. text, xvar, 400)
+    love.graphics.print("" .. text, 800, 300)
 
         love.graphics.print("press enter to continue")
 
