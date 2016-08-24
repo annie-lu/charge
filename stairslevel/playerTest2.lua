@@ -78,22 +78,24 @@ function Player:update(dt)
 
 
 	Ttimer.update(dt)
-
+--[[
+maybe delete
 	if self.ground == nil then
 		self.ground = 500
 	end
 
+]]--
 	if self.pos.y == self.ground then
-		self.jump = true
+		self.velocity.y=0
 	end
 
-	if love.keyboard.isDown("w") and self.ydirection==true and self.canJump and self.velocity.y==0 then
+	if love.keyboard.isDown("w") and self.ydirection and self.canJump and self.velocity.y==0 then
 		self.acceleration.y = 500
 		self.velocity.y=-self.speed.y
-	elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
+	elseif love.keyboard.isDown("a") and self.xdirection then -- no control during kitchen challenge
 		self.acceleration.x =  50
 		self.velocity.x=-self.speed.x
-	elseif love.keyboard.isDown("d") and self.xdirection==true then -- no control during kitchen challenge
+	elseif love.keyboard.isDown("d") and self.xdirection then -- no control during kitchen challenge
 		self.acceleration.x =  -50
 		self.velocity.x=self.speed.x
 	end
