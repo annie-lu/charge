@@ -38,28 +38,33 @@ function tick()
 
 end
 
---handle = Timer.every(3, tick)
+handle = Timer.every(3, tick)
 
 function Stairs:update(dt)
 
     lol:update(dt)
 
+    for i = #platforms, 1, -1 do
+        platforms[i]:update(dt)
+    end
+
     for i = 1, #platforms, 1 do
         text = ""
-        if love.keyboard.isDown('q') then
-            platforms[i]:update(dt)
-        end
+        --if love.keyboard.isDown('q') then
+            --platforms[i]:update(dt)
+        --end
         if lol:getBotBB():collidesWith(platforms[i]:getBB()) then
-            text = "WHAT IS HAPPENING"
-            local x1, y1, x2, y2 = platforms[i]:getBB():bbox()
-                lol:setGround(y1 - lol:getImg():getHeight() + 10)
+            lol:canJump()
+            -- local x1, y1, x2, y2 = platforms[i]:getBB():bbox()
+            --     lol:setGround(y1 - lol:getImg():getHeight() + 10)
             break
         else
+            lol:cannotJump()
             lol:setGround(500)
         end
     end
 
-    --Timer.update(dt)
+    Timer.update(dt)
 
 
 
