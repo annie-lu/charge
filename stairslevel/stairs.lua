@@ -3,12 +3,15 @@ Piano = require 'pianolevel.piano'
 
 local Stairs = {}
 
-local Player = require 'playerTest2'
+local Player = require 'stairslevel/playerTest2'
+local Platform = require 'stairslevel/platform'
+local Timer = require 'hump.timer'
+local t = Timer.new()
 
-local rect = HC.rectangle(100, 500, 200, 20)
-local rect3 = HC.rectangle(600, 400, 200, 20)
-local rect2 = HC.rectangle(500, 600, 200, 20)
-local rect4 = HC.rectangle(200, 300, 200, 20)
+local rect = Platform(100, 500)--HC.rectangle(100, 500, 200, 20)
+local rect3 = Platform(600, 400)--HC.rectangle(600, 400, 200, 20)
+local rect2 = Platform(500, 600)--HC.rectangle(500, 600, 200, 20)
+local rect4 = Platform(200, 300)--HC.rectangle(200, 300, 200, 20)
 --local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
 local lol = Player(300, 500, true, true)
 local text = ""
@@ -21,10 +24,31 @@ local xvar = 400
 
 --local test = {}
 
-function test()
+function tick()
+
+    math.randomseed(os.time())
+    local x1 = math.random(0, 500)
+    local x2 = math.random(600, 800)
+
+    if #platforms % 2 == 0 then
+        platforms[#platforms + 1] = Platform(x1, -10)
+    else
+        platforms[#platforms + 1] = Platform(x2, -10)
+    end
+
+end
+
+handle = Timer.every(3, tick)
+
+function Stairs:update(dt)
+
+    lol:update(dt)
+
     for i = 1, #platforms, 1 do
-        if lol:getBotBB():collidesWith(platforms[i]) then
-            local x1, y1, x2, y2 = platforms[i]:bbox()
+
+        platforms[i]:update(dt)
+        if lol:getBotBB():collidesWith(platforms[i]:getBB()) then
+            local x1, y1, x2, y2 = platforms[i]:getBB():bbox()
                 lol:setGround(y1 - lol:getImg():getHeight() + 10)
             break
         else
@@ -32,12 +56,7 @@ function test()
         end
     end
 
-end
-
-function Stairs:update(dt)
-
-    lol:update(dt)
-    test()
+    Timer.update(dt)
 
 
 
