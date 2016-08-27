@@ -86,10 +86,11 @@ maybe delete
 
 ]]--
 	if self.pos.y == self.ground then
-		self.velocity.y=0
+		self.jump = true
 	end
 
-	if love.keyboard.isDown("w") and self.ydirection and self.canJump and self.velocity.y==0 then
+
+	if love.keyboard.isDown("w") and self.ydirection and self.jump and self.velocity.y== 100 then -- or self.velocity.y == 50) then
 		self.acceleration.y = 500
 		self.velocity.y=-self.speed.y
 	elseif love.keyboard.isDown("a") and self.xdirection then -- no control during kitchen challenge
@@ -106,7 +107,7 @@ maybe delete
 	end
 
 	if(self.jump and self.velocity.y>0) then
-		self.velocity.y = 0
+		self.velocity.y = 100
 		self.acceleration.y = 0
 	end
 
@@ -190,5 +191,6 @@ end
 function Player:cannotJump()
 	self.jump = false
 end
+
 
 return Player

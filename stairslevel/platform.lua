@@ -13,7 +13,7 @@ function Platform:init(x, y)
     self.pos = vector(self.x, self.y)
     self.original_pos = self.pos
 
-    self.velocity = vector(0, 50) --can be changed if the platforms r like horizontal and stuff
+    self.velocity = vector(0, 100) --can be changed if the platforms r like horizontal and stuff
 
     self.bb = HC.rectangle(self.x, self.y, 250, 26)
     self.bb_center = vector(self.bb:center())

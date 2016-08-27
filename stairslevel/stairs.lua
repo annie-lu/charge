@@ -8,14 +8,14 @@ local Platform = require 'stairslevel/platform'
 local Timer = require 'hump.timer'
 local t = Timer.new()
 
-local rect = Platform(100, 500)--HC.rectangle(100, 500, 200, 20)
-local rect3 = Platform(600, 400)--HC.rectangle(600, 400, 200, 20)
-local rect2 = Platform(500, 600)--HC.rectangle(500, 600, 200, 20)
+--local rect = Platform(100, 500)--HC.rectangle(100, 500, 200, 20)
+local rect3 = Platform(600, 0)--HC.rectangle(600, 400, 200, 20)
+local rect2 = Platform(400, 200)--HC.rectangle(500, 600, 200, 20)
 local rect4 = Platform(200, 300)--HC.rectangle(200, 300, 200, 20)
 --local rect2 = HC.rectangle(100, 700, love.graphics.getWidth(), 20)
 local lol = Player(300, 100, true, true)
 local text = ""
-local platforms = {rect, rect3, rect2, rect4} -- only the last one will be interactable why
+local platforms = {rect3, rect2, rect4} -- only the last one will be interactable why
 -- lol:addPlatform(rect)
 -- lol:addPlatform(rect2)
 -- lol:addPlatform(rect) --the last platform in the table will only be the one that is interactable with
@@ -27,9 +27,10 @@ local xvar = 400
 function tick()
 
     math.randomseed(os.time())
-    local x1 = math.random(0, 500)
-    local x2 = math.random(600, 800)
+    local x1 = math.random(0, 600)
+    local x2 = math.random(500, 800)
 
+    --nice even spacing now doesn't work cause i remove platforms at they move down -_-
     if #platforms % 2 == 0 then
         platforms[#platforms + 1] = Platform(x1, -10)
     else
@@ -38,7 +39,7 @@ function tick()
 
 end
 
-handle = Timer.every(3, tick)
+handle = Timer.every(4, tick)
 
 function Stairs:update(dt)
 
@@ -46,6 +47,11 @@ function Stairs:update(dt)
 
     for i = #platforms, 1, -1 do
         platforms[i]:update(dt)
+
+        -- if platforms[i]:getY() > 850 then
+        --     table.remove(platforms, i)
+        --     i = i-1
+        -- end
     end
 
     for i = 1, #platforms, 1 do
@@ -55,6 +61,7 @@ function Stairs:update(dt)
         --end
         if lol:getBotBB():collidesWith(platforms[i]:getBB()) then
             lol:canJump()
+            --lol:setVelocityY()
             -- local x1, y1, x2, y2 = platforms[i]:getBB():bbox()
             --     lol:setGround(y1 - lol:getImg():getHeight() + 10)
             break
@@ -116,7 +123,7 @@ function Stairs:draw(dt)
 
 
     love.graphics.print("" .. text, 800, 300)
-
+    love.graphics.print(#platforms, 100, 200)
         love.graphics.print("press enter to continue")
 
     for i = 1, #platforms, 1 do
