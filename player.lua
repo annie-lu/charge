@@ -80,7 +80,7 @@ function Player:update(dt)
 	end
 
 	self.pos = self.pos + self.velocity * dt
-self.velocity = self.velcoity + self.acceleration*dt
+	self.velocity = self.velocity + self.acceleration*dt
 
 	self.re = self.original - self.pos
 
