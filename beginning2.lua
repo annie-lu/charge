@@ -1,6 +1,8 @@
 local BeginTwo = {}
 local Stairs = require 'stairslevel.stairs'
 local Piano = require 'pianolevel.piano'
+local Kitchen = require 'kitchenlevel.kitchen'
+local Bedroom = require 'bedroomlevel.bedroom'
 --local IDK = require 'hump.game'
 
 local screen= love.graphics.newImage("intro2.png")
@@ -12,7 +14,7 @@ end
 
 function BeginTwo:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(Stairs)
+        Gamestate.switch(Bedroom)
     end
 end
 
