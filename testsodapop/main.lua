@@ -17,8 +17,8 @@ function love.load()
     stopAtEnd   = true,
     reverse      = true,
     frames      = {
-      {1, 1, 4, 1, 0.08},
-      {4, 1, 1, 1, 0.08}
+      {1, 1, 4, 1, 0.14},
+      {4, 1, 1, 1, 0.17}
     },
   })
   playerSprite:addAnimation('jump', {
