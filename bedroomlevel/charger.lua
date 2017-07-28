@@ -10,7 +10,9 @@ function Charger:init(x, y)
   self.x = x
   self.y = y
   self.pos = vector(self.x, self.y)
-  self.bounding = HC.rectangle(self.x, self.y, self.img:getWidth(), self.img:getHeight())
+  self.bounding = HC.rectangle(self.pos.x, self.pos.y, self.img:getWidth(), self.img:getHeight())
+  self.offsetX = self.img:getWidth() / 2
+  self.offsetY = self.img:getHeight() / 2
 end
 
 function Charger:draw()
@@ -21,6 +23,12 @@ end
 
 function Charger:getBB()
   return self.bounding
+end
+
+function Charger:move(x, y)
+  self.pos.x = x
+  self.pos.y = y
+  self.bounding:moveTo(x + self.offsetX, y + self.offsetY)
 end
 
 return Charger

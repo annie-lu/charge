@@ -17,7 +17,9 @@ function Bedroom2:update(dt)
   mouse:moveTo(love.mouse:getX() + 5, love.mouse:getY() + 9)
 
   if char:getBB():collidesWith(mouse) then
-    text = ":0"
+    local x = math.random(0, 900)
+    local y = math.random(0, 600)
+    char:move(x, y)
   end
 end
 
