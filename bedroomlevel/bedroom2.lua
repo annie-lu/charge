@@ -20,6 +20,7 @@ function Bedroom2:update(dt)
 
   if char:getBB():collidesWith(mouse) then
     if love.mouse.isDown(1) then
+      startTime = love.timer.getTime()
       Gamestate.switch(Bedroom3)
     else
       local x = math.random(0, 900)
