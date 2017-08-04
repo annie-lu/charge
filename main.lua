@@ -1,6 +1,6 @@
 Gamestate = require 'hump.gamestate'
 
-local Introduction = require 'intro'
+local Introduction = require 'start'
 
 function love.load()
     Gamestate.registerEvents()

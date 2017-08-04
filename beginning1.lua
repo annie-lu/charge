@@ -5,7 +5,6 @@ local Begin2 = require 'beginning2'
 local screen= love.graphics.newImage("intro1.png")
 function Begin:draw()
 	love.graphics.draw(screen, 0, 0)
-        love.graphics.print("press enter to continue")
 end
 
 

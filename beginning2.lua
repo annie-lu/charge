@@ -10,7 +10,6 @@ startTime = 0;
 local screen= love.graphics.newImage("intro2.png")
 function BeginTwo:draw()
 	love.graphics.draw(screen, 0, 0)
-        love.graphics.print("press enter to continue")
 end
 
 
