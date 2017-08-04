@@ -2,6 +2,11 @@ local Bedroom3 = {}
 
 local Timer = require 'timer'
 
+local testTimer = require 'hump.timer'
+
+--local timeLimit = 10
+--timer.every(1, function() timeLimit = timeLimit - 1 end, 10)
+
 --elaspedTime = 0
 
 function Bedroom3:update(dt)
