@@ -1,8 +1,5 @@
 local BeginTwo = {}
-local Stairs = require 'stairslevel.stairs'
-local Piano = require 'pianolevel.piano'
-local Kitchen = require 'kitchenlevel.kitchen'
-local Bedroom = require 'bedroomlevel.bedroom'
+local Kitchen = require 'kitchenlevel.kitchen1'
 --local IDK = require 'hump.game'
 
 startTime = 0;
@@ -16,7 +13,7 @@ end
 function BeginTwo:keyreleased(key, code)
     if key == 'return' then
 				startTime = love.timer.getTime();
-        Gamestate.switch(Bedroom)
+        Gamestate.switch(Kitchen)
     end
 end
 
