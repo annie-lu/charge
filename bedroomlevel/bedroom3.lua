@@ -10,10 +10,7 @@ local tT = testTimer.new()
 
 local text = ""..timeLimit
 
-function tick()
-  timeLimit = timeLimit - 1
-  text = ""..timeLimit
-end
+
 
 handle = tT:every(1, tick)
 
