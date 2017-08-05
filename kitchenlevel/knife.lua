@@ -14,11 +14,12 @@ function Knife:init(x, y)
 		self.pos = vector(self.x, self.y) --vector(400, 300)
 		self.original = self.pos
 		self.delta = vector(0, 0)
-		self.bb = HC.polygon(self.x + 10, self.y + 28,
-			self.x + 40, self.y + 15,
-		 	self.x + self.img:getWidth() - 15,  self.y + 15,
-		 	self.x + self.img:getWidth() - 15, self.y + 38,
-		 	self.x + 57, self.y + 38)
+		-- self.bb = HC.polygon(self.x + 10, self.y + 28,
+		-- 	self.x + 40, self.y + 15,
+		--  	self.x + self.img:getWidth() - 15,  self.y + 15,
+		--  	self.x + self.img:getWidth() - 15, self.y + 38,
+		--  	self.x + 57, self.y + 38)
+		self.bb = HC.point( self.x + 10,  self.y + 28)
 		 --self.bb:scale(0.4, self.bb:center())
 
 		 self.test = vector(self.bb:center())
@@ -26,10 +27,10 @@ end
 
 function Knife:draw()
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
-	self.bb:draw()
-	love.graphics.print("Knife X: " .. self.pos.x .. " Y: " .. self.pos.y, 400, 100)
-	local cx, cy = self.bb:center()
-	love.graphics.print("BB X: " .. cx .. " Y: " .. cy, 400, 200)
+	--self.bb:draw()
+	--love.graphics.print("Knife X: " .. self.pos.x .. " Y: " .. self.pos.y, 400, 100)
+	--local cx, cy = self.bb:center()
+	--love.graphics.print("BB X: " .. cx .. " Y: " .. cy, 400, 200)
 end
 
 function Knife:update(dt)
@@ -41,11 +42,23 @@ function Knife:update(dt)
 end
 
 function Knife:getX()
-	return self.pos.x;
+	return self.pos.x
+end
+
+function Knife:getY()
+	return 600
 end
 
 function Knife:getImg()
 	return self.img
+end
+
+function Knife:getBB()
+	return self.bb
+end
+
+function Knife:getDamage()
+	return self.damage
 end
 
 return Knife
