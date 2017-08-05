@@ -67,7 +67,7 @@ function tick()
 
 end
 
-handle = Timer.every(3, tick)
+local handle = Timer.every(3, tick)
 
 --bullets[1] = HC.point(love.mouse.getX(), love.mouse.getY())
 

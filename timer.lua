@@ -4,18 +4,20 @@ local humpT = require 'hump.timer'
 
 local Timer = Class{}
 
-local timeLimit = 5
+local timeLimit = 15
 local text = ""
 
 local Time = humpT.new()
 
 local remainingTime = timeLimit
 
-function tick()
+function tick2()
   timeLimit = timeLimit - 1
+  --remainingTime = timeLimit
+  text = timeLimit
 end
 
-local handle = Time:every(1, tick)
+handle2 = Time:every(1, function() timeLimit = timeLimit - 1 end)
 
 function Timer:draw()
 
@@ -25,14 +27,17 @@ end
 
 function Timer:update(dt)
 
+  Time:update(dt)
   --remainingTime = remainingTime - dt
-  if remainingTime <= 0 then
-    Time:cancel(handle)
+  if timeLimit <= 0 then
+    --Time:cancel(handle2)
     text = "OUT OF TIME"
-  else
-    Time:update(dt)
-    text = remainingTime--math.floor(self.remainingTime + 0.5)
+  --else
+    --Time:update(dt)
+    --text = timeLimit--math.floor(self.remainingTime + 0.5)
   end
+
+
 
 end
 

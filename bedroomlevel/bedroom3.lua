@@ -1,18 +1,18 @@
 local Bedroom3 = {}
 
---local Timer = require 'timer'
+local Timer = require 'timer'
 
-local testTimer = require 'hump.timer'
+--local testTimer = require 'hump.timer'
 
-local timeLimit = 10
+--local timeLimit = 10
 
-local tT = testTimer.new()
+--local tT = testTimer.new()
 
-local text = ""..timeLimit
+--local text = ""..timeLimit
 
 
 
-handle = tT:every(1, tick)
+--handle = tT:every(1, tick)
 
 --timer.every(1, function() timeLimit = timeLimit - 1 end, 10)
 
@@ -23,22 +23,24 @@ function Bedroom3:update(dt)
   --elapsedTime = love.timer.getTime() - startTime
 
 
-  if timeLimit <= 0 then
-    tT:cancel(handle)
-  end
+  -- if timeLimit <= 0 then
+  --   tT:cancel(handle)
+  -- end
+  --
+  -- tT:update(dt)
 
-  tT:update(dt)
+  Timer:update(dt)
 
 end
 
 function Bedroom3:draw()
-  --Timer:draw()
+  Timer:draw()
 
 
 
   love.graphics.setNewFont(14)
   love.graphics.setColor(255, 255, 255)
-  love.graphics.print(text, 100, 10)
+  --love.graphics.print(text, 100, 10)
   love.graphics.print("You got ur charger! But both your outlets are being used by your lamp and your computer!", 200, 100)
   --love.graphics.print("wtf "..love.timer.getTime(), 400, 135)
   love.graphics.print("You need to unplug one!", 400, 150)
