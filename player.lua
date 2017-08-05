@@ -24,7 +24,7 @@ local Ttimer = require 'hump.timer'
 local Player = Class{}
 
 function Player:init(x,y,xdirection,ydirection)
-		self.speed = vector(100,400)
+		self.speed = vector(100, 400)
     self.health = 30
 		self.x = x
 		self.y = y
@@ -63,8 +63,11 @@ function Player:update(dt)
 
 
   if love.keyboard.isDown('w') and self.ydirection==true then
-	   	self.acceleration.y = -98
-			self.velocity.y=self.speed.y
+	   	self.acceleration.y = 98
+			self.velocity.y = -self.speed.y
+	elseif love.keyboard.isDown('s') and self.ydirection == true then
+			self.acceleration.y = 98
+			self.velocity.y = self.speed.y
   elseif love.keyboard.isDown("a") and self.xdirection==true then -- no control during kitchen challenge
     self.acceleration.x = - 50
 		self.velocity.x=self.speed.x
