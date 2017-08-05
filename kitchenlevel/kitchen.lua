@@ -6,7 +6,7 @@ Gamestate = require 'hump.gamestate'
 local Kitchen = {}
 
 local Knife = require 'kitchenlevel.knife'
-local Player = require 'player'
+local Player = require 'playerTest3k'
 local Fork = require 'kitchenlevel.fork'
 HC = require 'hc'
 local vector = require 'hump.vector'
