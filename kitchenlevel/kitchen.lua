@@ -129,7 +129,6 @@ function Kitchen:update(dt)
     end
 
 
-Gamestate.switch(Kitchen3)
 
 
 
@@ -185,6 +184,7 @@ Gamestate.switch(Kitchen3)
 
 --end
 end
+
 function Kitchen:draw(dt)
 
 	lol:draw()
@@ -234,6 +234,12 @@ if(lol:getHealth() == 0) then
 	-- 	rect2:draw('fill')
     --mouse:draw('fill')
 
+end
+
+function Kitchen:keyreleased(key, code)
+    if key == 'return' then
+        Gamestate.switch(Kitchen3)
+    end
 end
 
 return Kitchen
