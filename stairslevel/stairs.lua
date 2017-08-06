@@ -1,5 +1,5 @@
 Gamestate = require 'hump.gamestate'
-Piano = require 'pianolevel.piano'
+Lost = require 'lost'
 
 local Stairs = {}
 
@@ -136,7 +136,7 @@ end
 
 function Stairs:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(Piano)
+        Gamestate.switch(Lost)
     end
 end
 

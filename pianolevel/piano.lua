@@ -1,5 +1,5 @@
 Gamestate = require 'hump.gamestate'
-local Kitchen = require 'kitchenlevel.kitchen'
+local Piano = require 'pianolevel.piano3'
 
 local Piano = {}
 
@@ -23,24 +23,23 @@ sandstorm = {"b","b","b","b","b","b","b",
 "b","b","b","b","b","e","e",
 "e","e","e","e","e","d","d",
 "d","d","d","d","d","a",
-"b","b","b","b","b","b","b",
-"b","b","b","b","b","e","e",
-"b","b","b","b","b","b","b",
-"b","b","b","b","b","e","e",
-"b","b","b","b","b","b","b",
-"b","b","b","b","b","e","e",
-"e","e","e","e","e","d","d",
-"d","d","d","d","d","a","b"
+--"b","b","b","b","b","b","b",
+--"b","b","b","b","b","e","e",
+--"b","b","b","b","b","b","b",
+--"b","b","b","b","b","e","e",
+--"b","b","b","b","b","b","b",
+--"b","b","b","b","b","e","e",
+--"e","e","e","e","e","d","d",
+--"d","d","d","d","d","a","b"
 }
 
 i = 1
-final = 14 --should be 84
+final = 28 --should be 84
 
 
 function Piano:draw()
   if i==final then
-  love.graphics.print("done", 50, 50)
-    Gamestate.switch(Kitchen)
+    Gamestate.switch(Piano)
 elseif love.keyboard.isDown('a') then
   	love.graphics.draw(akey, 0, 0)
 elseif love.keyboard.isDown('b') then

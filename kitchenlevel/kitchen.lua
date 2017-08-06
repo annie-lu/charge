@@ -4,7 +4,7 @@
 Gamestate = require 'hump.gamestate'
 
 local Kitchen = {}
-
+local Ending= require 'lost'
 local Knife = require 'kitchenlevel.knife'
 local Player = require 'playerTest3k'
 local Fork = require 'kitchenlevel.fork'
@@ -17,7 +17,7 @@ local timer = Timer.new()
 local text = {}
 local name, name2, lol, name3
 local hit = 0
-
+local Kitchen3 = require 'kitchenlevel.kitchen3'
 --collider = HC.new(850)
 
 	local color = {0, 0, 0}
@@ -129,7 +129,7 @@ function Kitchen:update(dt)
     end
 
 
-
+Gamestate.switch(Kitchen3)
 
 
 
@@ -216,7 +216,9 @@ function Kitchen:draw(dt)
 		love.graphics.rectangle("fill", 50, 50, lol:getHealth() * 10, 10)
 	end
 	love.graphics.print("Health: "..lol:getHealth(), 100, 80)
-
+if(lol:getHealth() == 0) then
+	  Gamestate.switch(Ending)
+	end
 	--love.graphics.print(fruits[1]:getImg():getWidth(), 100, 200)
 
 	--love.graphics.print(hit, 800, 50)
