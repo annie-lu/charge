@@ -32,7 +32,7 @@ local Ttimer = require 'hump.timer'
 local Player = Class{}
 
 function Player:init(x,y,xdirection,ydirection)
-	self.speed = vector(200,400)
+	self.speed = vector(200,500)
 	self.health = 30
 	self.x = x
 	self.y = y
@@ -57,6 +57,7 @@ function Player:init(x,y,xdirection,ydirection)
 	self.ground = 400
 
 	self.jump = false
+	self.squat = false
 	--h = {self.health, {0, 255, 0}}
 	--Ttimer.tween(10, h, {self.health, {255, 0, 0}}, 'in-out-quad')
 
@@ -95,18 +96,21 @@ maybe delete
 	end
 
 
-	if love.keyboard.isDown("w") and self.ydirection and self.jump and self.velocity.y== 100 then -- or self.velocity.y == 50) then
-		self.acceleration.y = 500
+	if love.keyboard.isDown("w") and self.ydirection and self.jump and self.velocity.y== 800 then -- or self.velocity.y == 50) then
+		self.acceleration.y = 800
 		self.velocity.y=-self.speed.y
-	elseif love.keyboard.isDown("s") and self.ydirection and self.jump and self.velocity.y== 100 then
+
+
+	elseif love.keyboard.isDown("s") and self.ydirection and self.jump and self.velocity.y== 800 then
 		--there's a ground so cant move down through the ground
 		--s is just to squat
 		--thus, squating is just changing the hitbox
 		self.img = love.graphics.newImage("squat.png")
-		self.bb = HC.rectangle(self.x + 30, self.y-180, 10, self.img:getHeight()/2 + 50)
+		self.bb = HC.rectangle(self.x + 30, self.y-180, 10, self.img:getHeight()/2 + 30)
 		self.bottomBB = HC.rectangle(self.x, self.y, self.img:getWidth()-40, 10)
 		self.wtf = HC.circle(self.x + 30, self.y + 250, 10)
 
+		self.squat = true
 	elseif love.keyboard.isDown("a") and self.xdirection then -- no control during kitchen challenge
 		self.acceleration.x =  50
 		self.velocity.x=-self.speed.x
@@ -117,6 +121,8 @@ maybe delete
 		self.img = love.graphics.newImage("player.png")
 		self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-15)
 		self.bottomBB = HC.rectangle(self.x - 10, self.y, self.img:getWidth()-40, 10)
+
+		self.squat = false
 	end
 
 	if(math.abs(self.velocity.x) < 10) then
@@ -125,7 +131,7 @@ maybe delete
 	end
 
 	if(self.jump and self.velocity.y>0) then
-		self.velocity.y = 100
+		self.velocity.y = 800
 		self.acceleration.y = 0
 	end
 
@@ -140,14 +146,23 @@ maybe delete
 
 	self.re = self.original - self.pos
 
-	self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight() / 2 + 5)--self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
+	if self.squat == false then
+		self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight() / 2 + 5)--self.img:getWidth() / 2, self.pos.y + self.img:getHeight() /2)
+	else
+		self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight() / 2 + 30)
+	end
 	self.bottomBB:moveTo(self.pos.x + 50, self.pos.y + self.img:getHeight() - 10)
 
 	if self.pos.y < 0 then
 		self.pos.y = 0
 	elseif self.pos.y > self.ground then
 		self.pos.y = self.ground
-		self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight()/2 + 5)
+
+		if self.squat == false then
+			self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight()/2 + 5)
+		else
+			self.bb:moveTo(self.pos.x + self.img:getWidth()/2, self.pos.y + self.img:getHeight() / 2 + 30)
+		end
 		self.bottomBB:moveTo(self.pos.x + 50, self.pos.y + self.img:getHeight() - 10)
 
 	end
