@@ -5,6 +5,7 @@ local Bedroom = {}
 local Player = require 'stairslevel/playerTest2'
 local Charger = require 'bedroomlevel.charger'
 local Bedroom2 = require 'bedroomlevel.bedroom2'
+local screen= love.graphics.newImage("bedroomlevel/bedroomgame1.png")
 
 local p = Player(100, 350, true, false)
 local char = Charger(400, 500)
@@ -26,10 +27,9 @@ function Bedroom:update(dt)
 end
 
 function Bedroom:draw()
+  love.graphics.draw(screen, 0, 0)
   char:draw()
   p:draw()
-  love.graphics.print("You found the charger! Press 'e' to pick it up!", 100, 80)
-  love.graphics.print(text, 100, 100)
 end
 
 

@@ -17,7 +17,8 @@ local timer = Timer.new()
 local text = {}
 local name, name2, lol, name3
 local hit = 0
-local Kitchen3 = require 'pianolevel.piano1'
+--local Kitchen3 = require 'pianolevel.piano1'
+local Kitchen3 = require 'Stairslevel.stairs'
 --collider = HC.new(850)
 
 	local color = {0, 0, 0}

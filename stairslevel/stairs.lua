@@ -1,12 +1,14 @@
 Gamestate = require 'hump.gamestate'
-Lost = require 'lost'
-local screen= love.graphics.newImage("stairslevel/stairsgame.png")
+Bedroom = require 'bedroomlevel.bedroom'
+
 local Stairs = {}
 
 local Player = require 'stairslevel/playerTest2'
 local Platform = require 'stairslevel/platform'
 local Timer = require 'hump.timer'
 local t = Timer.new()
+local screen= love.graphics.newImage("stairslevel/stairsgame.png")
+
 
 --local rect = Platform(100, 500)--HC.rectangle(100, 500, 200, 20)
 local rect3 = Platform(600, 0)--HC.rectangle(600, 400, 200, 20)
@@ -136,7 +138,7 @@ end
 
 function Stairs:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(Lost)
+        Gamestate.switch(Bedroom)
     end
 end
 

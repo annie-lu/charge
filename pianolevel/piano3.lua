@@ -1,10 +1,11 @@
 local PianoThree = {}
-local Piano = require 'stairslevel.stairs'
+local Stairs = require 'stairslevel.stairs'
 --local IDK = require 'hump.game'
 
 startTime = 0;
 
-local screen= love.graphics.newImage("Pianolevel/transistion4.png")
+local screen= love.graphics.newImage("Pianolevel/Pianotransition3.png")
+
 function PianoThree:draw()
 	love.graphics.draw(screen, 0, 0)
 end
@@ -12,7 +13,7 @@ end
 
 function PianoThree:keyreleased(key, code)
     if key == 'return' then
-        Gamestate.switch(Piano)
+        Gamestate.switch(Stairs)
     end
 end
 

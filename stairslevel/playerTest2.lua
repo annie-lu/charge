@@ -150,6 +150,11 @@ function Player:getBotBB()
 	return self.bottomBB
 end
 
+function Player:getFall()
+	return self.ground == self.pos.y
+end
+
+
 function Player:getX()
 	return self.pos.x
 end

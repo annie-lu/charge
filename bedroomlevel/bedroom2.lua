@@ -1,6 +1,6 @@
 --Gamestate = require 'hump.gamestate'
 
-local Bedroom3 = require 'bedroomlevel.bedroom3'
+local Bedroom3 = require 'won'
 
 local Bedroom2 = {}
 
@@ -9,10 +9,10 @@ local Charger = require 'bedroomlevel.charger'
 
 local char = Charger(400, 500)
 
-local text = "Oh no, ur charger is revolting against you! Click on it to grab it!"
 
 local mouse = HC.circle(100, 100, 10)
 
+local screen= love.graphics.newImage("bedroomlevel/bedroomgame2.png")
 
 function Bedroom2:update(dt)
 
@@ -31,9 +31,9 @@ function Bedroom2:update(dt)
 end
 
 function Bedroom2:draw()
+  love.graphics.draw(screen, 0, 0)
   char:draw()
   mouse:draw()
-  love.graphics.print(text, 100, 100)
 end
 
 return Bedroom2
