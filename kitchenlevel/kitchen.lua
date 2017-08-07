@@ -50,20 +50,27 @@ local Kitchen3 = require 'pianolevel.piano1'
 
 
 	--while lol:getHealth() == 30 do
+
+local limit = 9
+
 function tick()
 
+	if limit > 0 then
     	math.randomseed(os.time())
-		local pp = math.random(2)
+			local pp = math.random(2)
         --math.randomseed(os.time())
-		--local x = math.random(1000, 1100)
-		--math.randomseed(os.time())
-		local y = math.random(400, 600)
-		if pp == 1 then
+				--local x = math.random(1000, 1100)
+				--math.randomseed(os.time())
+				local y = math.random(400, 600)
+				if pp == 1 then
 
-			fruits[#fruits + 1] = Fork(1000, y)
-		else
-        	fruits[#fruits + 1] = Knife(1000, y)
-		end
+						fruits[#fruits + 1] = Fork(1000, y)
+				else
+        		fruits[#fruits + 1] = Knife(1000, y)
+				end
+	end
+
+		limit = limit - 1
 
 end
 
@@ -89,8 +96,14 @@ handle = Timer.every(3, tick)
 
 function Kitchen:update(dt)
 
-	if lol:dead() then
-		Timer.cancel(handle)
+	if lol:dead()  or limit == -2 then
+		--if limit == 1 then
+				--Timer.after(3, function() Timer.cancel(handle) limit = 0 end )
+
+		--else
+			Timer.cancel(handle)
+		--end
+
 		for k in pairs(fruits) do
 			fruits[k] = nil
 		end
@@ -201,7 +214,7 @@ love.graphics.draw(screen, 0, 0)
 	--rect:draw('fill')
 	-- name:draw()
 	-- --name2:draw()
-
+	love.graphics.print(""..limit, 500, 10)
 	-- name3:draw()
 	-- bb:draw()
 	-- triangle:draw()
@@ -218,6 +231,10 @@ love.graphics.draw(screen, 0, 0)
 	love.graphics.print("Health: "..lol:getHealth(), 100, 80)
 if(lol:getHealth() == 0) then
 	  Gamestate.switch(Ending)
+	end
+
+	if(limit == -2) then
+		Timer.after(15, Gamestate.switch(Kitchen3))
 	end
 	--love.graphics.print(fruits[1]:getImg():getWidth(), 100, 200)
 
