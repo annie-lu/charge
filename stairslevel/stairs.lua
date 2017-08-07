@@ -1,6 +1,6 @@
 Gamestate = require 'hump.gamestate'
 Lost = require 'lost'
-
+local screen= love.graphics.newImage("stairslevel/stairsgame.png")
 local Stairs = {}
 
 local Player = require 'stairslevel/playerTest2'
@@ -120,7 +120,7 @@ function Stairs:update(dt)
 end
 
 function Stairs:draw(dt)
-
+love.graphics.draw(screen, 0, 0)
 
     love.graphics.print("" .. text, 800, 300)
     love.graphics.print(#platforms, 100, 200)

@@ -1,5 +1,5 @@
 
-
+local screen= love.graphics.newImage("kitchenlevel/kitchengamebg.png")
 
 Gamestate = require 'hump.gamestate'
 
@@ -186,7 +186,7 @@ function Kitchen:update(dt)
 end
 
 function Kitchen:draw(dt)
-
+love.graphics.draw(screen, 0, 0)
 	lol:draw()
 
 	--bullets[1]:draw(dt)
