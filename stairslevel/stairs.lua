@@ -26,8 +26,11 @@ local xvar = 400
 
 --local test = {}
 
+local limit = 13
+
 function tick()
 
+  if limit > 0 then
     math.randomseed(os.time())
     local x1 = math.random(0, 600)
     local x2 = math.random(500, 800)
@@ -38,12 +41,19 @@ function tick()
     else
         platforms[#platforms + 1] = Platform(x2, -10)
     end
+  end
+
+  limit = limit - 1
 
 end
 
 handle = Timer.every(4, tick)
 
 function Stairs:update(dt)
+    Timer.update(dt)
+    if limit == -2 then
+      Timer.cancel(handle)
+    end
 
     lol:update(dt)
     if lol:getFall() then
@@ -75,7 +85,7 @@ function Stairs:update(dt)
         end
     end
 
-    Timer.update(dt)
+
 
 
 
@@ -124,17 +134,21 @@ function Stairs:update(dt)
 end
 
 function Stairs:draw(dt)
-love.graphics.draw(screen, 0, 0)
+    love.graphics.draw(screen, 0, 0)
 
-    love.graphics.print("" .. text, 800, 300)
-    love.graphics.print(#platforms, 100, 200)
-        love.graphics.print("press enter to continue")
+    --love.graphics.print("" .. text, 800, 300)
+    --love.graphics.print(#platforms, 100, 200)
+    --love.graphics.print("press enter to continue")
 
     for i = 1, #platforms, 1 do
         platforms[i]:draw(dt)
     end
 
     lol:draw(dt)
+
+    if limit == -2 then
+      Gamestate.switch(Bedroom)
+    end
 
 end
 

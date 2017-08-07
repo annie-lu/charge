@@ -52,7 +52,7 @@ self.original = vector(self.x, self.y)
 	self.obb = vector(self.bb:center())
 
 	self.test = 0
-	self.ground = 500
+	self.ground = 400
 
 	self.jump = false
 	--h = {self.health, {0, 255, 0}}
@@ -64,14 +64,14 @@ function Player:draw()
 
 	love.graphics.draw(self.img, self.pos.x, self.pos.y)
 	--love.graphics.setColor(h[2])
-	love.graphics.print("VelocityY: " .. self.velocity.y, 500, 100)
-	love.graphics.print("Self.pos.y: " .. self.pos.y, 500, 115)
-	love.graphics.print("Self.ground: " .. self.ground, 650, 115)
-	love.graphics.print("Self.ground == self.pos.y: " .. tostring(math.floor(self.pos.y) == math.floor(self.ground)), 700, 150)
-	love.graphics.print("AccelerationY: ".. self.acceleration.y, 700, 200)
-	love.graphics.print(self.test, 900, 100)
-	self.bb:draw()
-	self.bottomBB:draw()
+	--love.graphics.print("VelocityY: " .. self.velocity.y, 500, 100)
+	--love.graphics.print("Self.pos.y: " .. self.pos.y, 500, 115)
+	--love.graphics.print("Self.ground: " .. self.ground, 650, 115)
+	--love.graphics.print("Self.ground == self.pos.y: " .. tostring(math.floor(self.pos.y) == math.floor(self.ground)), 700, 150)
+	--love.graphics.print("AccelerationY: ".. self.acceleration.y, 700, 200)
+	--love.graphics.print(self.test, 900, 100)
+	--self.bb:draw()
+	--self.bottomBB:draw()
 end
 
 function Player:update(dt)

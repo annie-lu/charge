@@ -24,7 +24,7 @@ function Bedroom2:update(dt)
       Gamestate.switch(Bedroom3)
     else
       local x = math.random(0, 900)
-      local y = math.random(0, 600)
+      local y = math.random(0, 400)
       char:move(x, y)
     end
   end
@@ -33,7 +33,7 @@ end
 function Bedroom2:draw()
   love.graphics.draw(screen, 0, 0)
   char:draw()
-  mouse:draw()
+  --mouse:draw()
 end
 
 return Bedroom2
