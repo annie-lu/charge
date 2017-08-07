@@ -43,11 +43,13 @@ function Player:init(x,y,xdirection,ydirection)
 	self.xdirection = xdirection
 	self.ydirection = ydirection
 	self.isDead = false
-self.original = vector(self.x, self.y)
+	self.original = vector(self.x, self.y)
 
 
 	self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-15)
 	self.bottomBB = HC.rectangle(self.x - 10, self.y, self.img:getWidth()-40, 10)
+
+	self.wtf = HC.circle(10, 10, 10)
 
 	self.obb = vector(self.bb:center())
 
@@ -72,6 +74,7 @@ function Player:draw()
 	love.graphics.print(self.test, 900, 100)
 	self.bb:draw()
 	self.bottomBB:draw()
+	self.wtf:draw()
 end
 
 function Player:update(dt)
@@ -99,12 +102,21 @@ maybe delete
 		--there's a ground so cant move down through the ground
 		--s is just to squat
 		--thus, squating is just changing the hitbox
+		self.img = love.graphics.newImage("squat.png")
+		self.bb = HC.rectangle(self.x + 30, self.y-180, 10, self.img:getHeight()/2 + 50)
+		self.bottomBB = HC.rectangle(self.x, self.y, self.img:getWidth()-40, 10)
+		self.wtf = HC.circle(self.x + 30, self.y + 250, 10)
+
 	elseif love.keyboard.isDown("a") and self.xdirection then -- no control during kitchen challenge
 		self.acceleration.x =  50
 		self.velocity.x=-self.speed.x
 	elseif love.keyboard.isDown("d") and self.xdirection then -- no control during kitchen challenge
 		self.acceleration.x =  -50
 		self.velocity.x=self.speed.x
+	else
+		self.img = love.graphics.newImage("player.png")
+		self.bb = HC.rectangle(self.x + 30, self.y, 10, self.img:getHeight()-15)
+		self.bottomBB = HC.rectangle(self.x - 10, self.y, self.img:getWidth()-40, 10)
 	end
 
 	if(math.abs(self.velocity.x) < 10) then
