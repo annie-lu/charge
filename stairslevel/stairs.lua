@@ -1,6 +1,6 @@
 Gamestate = require 'hump.gamestate'
 Bedroom = require 'bedroomlevel.bedroom'
-
+Lost=require 'lost'
 local Stairs = {}
 
 local Player = require 'stairslevel/playerTest2'
@@ -46,7 +46,9 @@ handle = Timer.every(4, tick)
 function Stairs:update(dt)
 
     lol:update(dt)
-
+    if lol:getFall() then
+      Gamestate.switch(Lost)
+    end
     for i = #platforms, 1, -1 do
         platforms[i]:update(dt)
 
